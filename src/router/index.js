@@ -5,6 +5,7 @@ import EventsID from "@/views/EventsID.vue";
 import Presensi from "@/views/Presensi.vue";
 import People from "@/views/People.vue";
 import PeopleID from "@/views/PeopleID.vue";
+import NotFound from "@/views/NotFound.vue";
 
 const routes = [
     {
@@ -36,6 +37,10 @@ const routes = [
         path: "/people/:id",
         name: "People_id",
         component: PeopleID,
+    },
+    {
+        path: "/:catchAll(.*)",
+        component: NotFound,
     },
 ];
 
