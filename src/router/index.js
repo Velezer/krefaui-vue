@@ -22,11 +22,14 @@ const routes = [
         path: "/events/:id",
         name: "Events_id",
         component: EventsID,
+        props: true
+
     },
     {
         path: "/events/:id/presensi",
         name: "Presensi",
         component: Presensi,
+        props: true
     },
     {
         path: "/people",
@@ -37,6 +40,7 @@ const routes = [
         path: "/people/:id",
         name: "People_id",
         component: PeopleID,
+        props: true
     },
     {
         path: "/:catchAll(.*)",
