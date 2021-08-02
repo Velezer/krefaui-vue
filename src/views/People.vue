@@ -10,6 +10,7 @@
 const axios = require("axios").default;
 
 export default {
+  props: ['id'],
   data() {
     return {
       people: "",
@@ -27,7 +28,7 @@ export default {
         this.people = data.data;
       });
     },
-    deletePeopleById(id){
+    deletePeople(id){
       axios.delete(this.urlPeople + "/api/people/"+id).then((res) => {
         let data = res.data
         if(data.status == 'success'){alert(data)}
