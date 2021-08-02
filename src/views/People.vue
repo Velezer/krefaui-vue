@@ -14,7 +14,7 @@ export default {
   data() {
     return {
       people: "",
-      urlPeople: "http://localhost:8080",
+      urlPeople: "http://"+location.hostname+":8080",
     };
   },
   created() {
@@ -22,6 +22,7 @@ export default {
   },
   methods: {
     getAllPeople() {
+      console.log(this.urlPeople)
       axios.get(this.urlPeople + "/api/people").then((res) => {
         let data = res.data
         console.log(data)
