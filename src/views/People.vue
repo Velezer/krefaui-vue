@@ -15,6 +15,7 @@ export default {
     return {
       people: [],
       urlPeople: "http://" + location.hostname + ":8080",
+      token: '7963fdc99d914b88daa2c53f015f113794da0a72'
     };
   },
   created() {
@@ -24,7 +25,11 @@ export default {
     getAllPeople() {
       console.log(this.urlPeople);
       axios
-        .get(this.urlPeople + "/api/people")
+        .get(this.urlPeople + "/api/people", {
+          headers: {
+            Authorization: `Bearer ${this.token}`,
+          },
+        })
         .then((res) => {
           console.log(res);
           let data = res.data;
@@ -32,7 +37,7 @@ export default {
           this.people = data.data;
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
           alert(err);
         });
     },

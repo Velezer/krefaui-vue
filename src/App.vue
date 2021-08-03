@@ -2,6 +2,7 @@
   <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
   <router-link :to="{ name: 'Events' }">Events</router-link>
   <router-link :to="{ name: 'People' }">People</router-link>
+  <router-link :to="{ name: 'Login' }">Login</router-link>
   <router-view></router-view>
 </template>
 
