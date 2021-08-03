@@ -15,30 +15,24 @@ export default {
     return {
       people: [],
       urlPeople: "http://" + location.hostname + ":8080",
-      token: '7963fdc99d914b88daa2c53f015f113794da0a72'
     };
   },
   created() {
+    axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access-token')}`;
     this.getAllPeople();
   },
   methods: {
     getAllPeople() {
-      console.log(this.urlPeople);
       axios
-        .get(this.urlPeople + "/api/people", {
-          headers: {
-            Authorization: `Bearer ${this.token}`,
-          },
-        })
+        .get(this.urlPeople + "/api/people")
         .then((res) => {
-          console.log(res);
           let data = res.data;
-          console.log(data);
           this.people = data.data;
         })
         .catch((err) => {
-          console.log(err);
-          alert(err);
+          if (err.response.status == 401) {
+            this.$router.push({ name: "Login" });
+          }
         });
     },
     deletePeople(id) {

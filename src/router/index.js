@@ -8,6 +8,7 @@ import PeopleID from "@/views/PeopleID.vue";
 import Login from "@/views/Login.vue";
 import NotFound from "@/views/NotFound.vue";
 
+
 const routes = [
     {
         path: "/",

@@ -14,7 +14,6 @@ export default {
   },
   created() {
     this.loginBasicAuth();
-    console.log(this.urlData + this.sessionEndPoint);
   },
   methods: {
     loginBasicAuth() {
@@ -34,11 +33,15 @@ export default {
           }
         )
         .then((res) => {
-          console.log(res);
-          alert(res.data.access_token)
-          alert(res.data.refresh_token)
+          localStorage.setItem("access-token", res.data.access_token);
+          localStorage.setItem("refresh-token", res.data.refresh_token);
+          this.$router.go(-1);
         })
-        .catch((err) => alert(err));
+        .catch((err) => {
+          localStorage.removeItem("access-token"); // if the request fails, remove any possible user token if possible
+          localStorage.removeItem("refresh-token"); // if the request fails, remove any possible user token if possible
+          alert(err);
+        });
     },
   },
 };
