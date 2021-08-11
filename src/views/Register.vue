@@ -1,0 +1,130 @@
+<template>
+  <div class="container text-center">
+    <img src="@/assets/elements/Blue_Lock_Register.png" />
+    <h3>Sudah punya akun ? <a href="#">Masuk</a></h3>
+  </div>
+  <div class="col-sm-6">
+    <img src="@/assets/elements/Blue_Icon_Profile.png" width="320" />
+  </div>
+  <div class="col-sm-5">
+    <form>
+      <div class="form-group">
+        <input type="text" placeholder="Nama Lengkap*" />
+      </div>
+      <div class="form-group">
+        <input type="text" placeholder="NO. WhatsApp*" />
+      </div>
+      <div class="form-group">
+        <input type="text" placeholder="Instagram*" id="usr" />
+      </div>
+      <div class="form-group">
+        <input type="text" placeholder="Almat Rumah*" id="usr" />
+      </div>
+    </form>
+
+    <input type="checkbox" class="agreement" value="agreement" />
+    <label for="agreement"
+      >Saya telah menyetujui kebijakan penggunaan<br />
+      dan kebijakan privasi atas platform KreFa</label
+    ><br />
+  </div>
+  <div class="col-sm-12">
+    <!-- <a href="#"
+      ><img
+        src="@/asets/Screenshot 2021-08-09 195831.png"
+        width="60"
+        alt=""
+    /></a> -->
+    <button type="button4" class="btn3">Ambil Foto</button>
+    <button type="button5" class="btn4">Daftar</button>
+  </div>
+
+  <br />
+  <br />
+  <br />
+  <br />
+  <footer class="container-fluid"></footer>
+</template>
+
+
+
+<style>
+.container {
+  padding-top: 100px;
+}
+.col-sm-6 {
+  padding-top: 100px;
+  padding-left: 370px;
+}
+.col-sm-5 {
+  padding-top: 100px;
+}
+form input {
+  width: 450px;
+  height: 60px;
+  border-radius: 50px;
+  border-color: #26c7e7;
+  border-width: 2px;
+}
+::placeholder {
+  padding-left: 10px;
+  color: #c6c5c5;
+  font-size: 20px;
+}
+
+label input {
+  width: 50px;
+  height: 30px;
+  border-radius: 50px;
+  border-color: #26c7e7;
+  border-width: 2px;
+}
+.col-sm-12 {
+  padding-left: 430px;
+  padding-top: 40px;
+}
+.btn4 {
+  background-color: #26c7e7;
+  border: none;
+  color: white;
+  padding: 10px 52px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 30px;
+}
+.btn3 {
+  background-color: white;
+  border-color: #26c7e7;
+  color: #26c7e7;
+  padding: 10px 38px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 18px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 30px;
+}
+.col-sm-12 .btn4 {
+  margin-left: 150px;
+  font-size: 20px;
+  size: 120px;
+  background-color: #26c7e7;
+  border: none;
+}
+footer {
+  background-color: white;
+  color: white;
+  padding: 85px;
+}
+
+input.agreement {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+</style>

@@ -1,0 +1,70 @@
+nav{
+    box-shadow: 0 0 20px 0 grey;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: white;
+    top: 0;
+    z-index: 1;
+    /* padding-left: 90px; */
+    position: sticky;
+}
+
+
+
+
+h6{
+  padding-left: 95px;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  float: left;
+  padding-right: 75px;
+}
+
+
+.Link{
+    padding-top: 20px;
+    
+    
+    
+}
+
+
+div a{
+  padding-top: 10px;
+  color: black;
+  
+}
+
+
+ul{
+  padding-right: 145px;
+}
+
+
+
+
+.btn{
+  font-size: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  color: black;
+}
+
+.btn-primary{
+  background-color: #e9f9fd;
+  border-radius: 40px;
+  border: none;
+  padding-left: 20px;
+  padding-right: 20px;
+  
+}
+
+
+
+.Text, a{
+  padding-top: 20px;
+
+
+}

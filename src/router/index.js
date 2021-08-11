@@ -1,11 +1,13 @@
 import { createWebHistory, createRouter } from "vue-router";
 import Home from "@/views/Home.vue";
+import NewEvent from "@/views/NewEvent.vue";
 import Events from "@/views/Events.vue";
 import EventsID from "@/views/EventsID.vue";
 import Presensi from "@/views/Presensi.vue";
 import People from "@/views/People.vue";
+import Register from "@/views/Register.vue";
 import PeopleID from "@/views/PeopleID.vue";
-import Login from "@/views/Login.vue";
+import LoginAdmin from "@/views/LoginAdmin.vue";
 import NotFound from "@/views/NotFound.vue";
 
 
@@ -19,6 +21,11 @@ const routes = [
         path: "/events",
         name: "Events",
         component: Events,
+    },
+    {
+        path: "/events/new",
+        name: "NewEvent",
+        component: NewEvent,
     },
     {
         path: "/events/:id",
@@ -39,15 +46,20 @@ const routes = [
         component: People,
     },
     {
+        path: "/people/register",
+        name: "Register",
+        component: Register,
+    },
+    {
         path: "/people/:id",
         name: "People_id",
         component: PeopleID,
         props: true
     },
     {
-        path: "/login",
+        path: "/admin/login",
         name: "Login",
-        component: Login,
+        component: LoginAdmin,
     },
     {
         path: "/:catchAll(.*)",

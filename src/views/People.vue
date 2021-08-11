@@ -18,7 +18,9 @@ export default {
     };
   },
   created() {
-    axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access-token')}`;
+    axios.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${localStorage.getItem("access-token")}`;
     this.getAllPeople();
   },
   methods: {
@@ -36,12 +38,19 @@ export default {
         });
     },
     deletePeople(id) {
-      axios.delete(this.urlPeople + "/api/people/" + id).then((res) => {
-        let data = res.data;
-        if (data.status == "success") {
-          alert(data);
-        }
-      });
+      axios
+        .delete(this.urlPeople + "/api/people/" + id)
+        .then((res) => {
+          let data = res.data;
+          if (data.status == "success") {
+            alert(data);
+          }
+        })
+        .catch((err) => {
+          if (err.response.status == 401) {
+            this.$router.push({ name: "Login" });
+          }
+        });
     },
   },
 };

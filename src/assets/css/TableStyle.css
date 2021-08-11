@@ -1,0 +1,47 @@
+ table{
+    box-shadow: 0 0 20px 0 grey;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 18px;
+    
+    
+}
+
+
+
+tr th{
+    
+    background-color: #26c7e7;
+    color: white;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    
+    
+}
+
+
+
+tbody tr td{
+    
+    color: black;
+    text-align: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
+
+    
+}
+
+
+ td{
+    /* border : 1px solid black; */
+    border-left: 2px solid #E1E1E1;
+    border-right: 2px solid #E1E1E1;
+    padding: 7px;
+    background-color: #F3F3F3;
+}
+
+th{
+    text-align: center;
+}
