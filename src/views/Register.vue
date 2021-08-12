@@ -3,7 +3,7 @@
     <img src="@/assets/elements/Blue_Lock_Register.png" />
     <h3>Sudah punya akun ? <a href="#">Masuk</a></h3>
   </div>
-  <div class="col-sm-6">
+  <div id="video" class="col-sm-6">
     <img src="@/assets/elements/Blue_Icon_Profile.png" width="320" />
   </div>
   <div class="col-sm-5">
@@ -41,7 +41,30 @@
   <footer class="container-fluid"></footer>
 </template>
 
+<script>
+import Webcam from "webcamjs";
 
+export default {
+  props: ["id"],
+  data() {
+    return {
+      config: { width: 400, height: 300, refreshTime: 175 },
+    };
+  },
+  created() {
+    Webcam.set({
+      width: this.config.width, // 4
+      height: this.config.height, // 3
+      image_format: "jpeg",
+      jpeg_quality: 70,
+    });
+    setTimeout(() => {
+      Webcam.attach("#video");
+      
+    }, 5000);
+  },
+};
+</script>
 
 <style>
 .container {

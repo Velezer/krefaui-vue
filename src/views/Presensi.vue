@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    <div class="col-sm-7">
+
+    <div id="video" class="col-sm-7">
       <img src="@/assets/elements/Blue_Icon_Profile.png" />
     </div>
     <div class="col-sm-4" style="padding-top: 100px">
@@ -15,15 +16,34 @@
 </template>
 
 <script>
+import Webcam from "webcamjs";
+
 export default {
   props: ["id"],
+  data() {
+    return {
+      config: { width: 400, height: 300, refreshTime: 175 },
+    };
+  },
+  created() {
+    Webcam.set({
+      width: this.config.width, // 4
+      height: this.config.height, // 3
+      image_format: "jpeg",
+      jpeg_quality: 70,
+    });
+    setTimeout(() => {
+      Webcam.attach("#video");
+      
+    }, 5000);
+  },
 };
 </script>
 
 
 
 <style>
-.col-sm-4 h2{
+.col-sm-4 h2 {
   font-size: 40px;
 }
 .container {
