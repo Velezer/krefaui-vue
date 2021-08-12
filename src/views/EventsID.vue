@@ -2,11 +2,11 @@
 
   <div class="container">
     <h1>Daftar <br />Presensi Kehadiran</h1>
-    <div class="col-sm-6">
-      <h4>Event : Peresmian KreFa</h4>
+    <div class="col-sm-5">
+      <h3>Event : Peresmian KreFa</h3>
     </div>
-    <div class="col-sm-6">
-      <h4>Hari : Senin,1 Juni 2021</h4>
+    <div class="col-sm-5">
+      <h3>Hari : Senin,1 Juni 2021</h3>
     </div>
 
     <table style="width: 85%">
@@ -64,8 +64,13 @@ export default {
   text-align: center;
 }
 
-.container h4 {
+.container h3 {
   text-align: center;
   padding-bottom: 50px;
+  padding: auto;
 }
+.col-sm-5{
+padding-left: 180px;
+}
+
 </style>

@@ -3,10 +3,10 @@
     <div class="col-sm-7">
       <img src="@/assets/elements/Blue_Icon_Profile.png" />
     </div>
-    <div class="col-sm-4">
-      <h1>Silahkan</h1>
-      <h1>Hadapkan Wajah</h1>
-      <h1>Anda ke Kamera</h1>
+    <div class="col-sm-4" style="padding-top: 100px">
+      <h2>Silahkan</h2>
+      <h2>Hadapkan Wajah</h2>
+      <h2>Anda ke Kamera</h2>
       <p>
         Sistem kami akan medeteksi dan<br />memproses wajah anda secara otomatis
       </p>
@@ -23,6 +23,9 @@ export default {
 
 
 <style>
+.col-sm-4 h2{
+  font-size: 40px;
+}
 .container {
   padding-top: 140px;
 }
@@ -31,6 +34,7 @@ export default {
   }*/
 .col-sm-4 p {
   font-size: 18px;
+  padding-top: 50px;
 }
 </style>
 

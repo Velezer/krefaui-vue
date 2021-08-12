@@ -29,14 +29,9 @@
     ><br />
   </div>
   <div class="col-sm-12">
-    <!-- <a href="#"
-      ><img
-        src="@/asets/Screenshot 2021-08-09 195831.png"
-        width="60"
-        alt=""
-    /></a> -->
-    <button type="button4" class="btn3">Ambil Foto</button>
-    <button type="button5" class="btn4">Daftar</button>
+
+    <button type="button4" class="btn13" style="border-color: #26c7e7">Ambil Foto</button>
+    <button type="button5" class="btn14">Daftar</button>
   </div>
 
   <br />
@@ -83,7 +78,7 @@ label input {
   padding-left: 430px;
   padding-top: 40px;
 }
-.btn4 {
+.btn14 {
   background-color: #26c7e7;
   border: none;
   color: white;
@@ -92,11 +87,11 @@ label input {
   text-decoration: none;
   display: inline-block;
   font-size: 20px;
-  margin: 4px 2px;
+  margin: 14px 320px;
   cursor: pointer;
   border-radius: 30px;
 }
-.btn3 {
+.btn13 {
   background-color: white;
   border-color: #26c7e7;
   color: #26c7e7;

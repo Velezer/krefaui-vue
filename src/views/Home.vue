@@ -1,14 +1,14 @@
 <template>
   <div class="container">
     <div class="col-sm-5">
-      <h1>Halo</h1>
-      <h1>Selamat Datang</h1>
-      <h1>di KreFa!</h1>
+      <h2>Halo</h2>
+      <h2>Selamat Datang</h2>
+      <h2>di KreFa!</h2>
       <p>Lorem Ipsum dolor sit amet,<br />Consectular elit</p>
       <a href="#"><img src="@/assets/elements/button.png" width="150" alt="" /></a>
     </div>
     <div class="col-sm-6">
-      <img src="@/assets/elements/landing_page_illustration.png" width="600" />
+      <img src="@/assets/elements/landing_page_illustration.png" width="330" />
     </div>
   </div>
 </template>
@@ -16,11 +16,10 @@
 
 
 
-
 <style>
+/* Ono Css yang Aktif mempengaruhi <h1></h1> tapi tempat tidak diketahui */
 
-
-.container {
+/* .container {
   padding-top: 140px;
 }
 .col-sm-6 img {
@@ -28,5 +27,7 @@
 }
 .col-sm-5 img {
   margin: 20px;
-}
+} */
+
+
 </style>
