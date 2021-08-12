@@ -35,7 +35,7 @@ tbody tr td{
 
 
  td{
-    /* border : 1px solid black; */
+    
     border-left: 2px solid #E1E1E1;
     border-right: 2px solid #E1E1E1;
     padding: 7px;
@@ -45,3 +45,18 @@ tbody tr td{
 th{
     text-align: center;
 }
+
+
+/* .container {
+    padding-top: 40px;
+  }
+  
+  .container h1 {
+    padding-bottom: 40px;
+    text-align: center;
+  }
+  
+  .container h4 {
+    text-align: center;
+    padding-bottom: 50px;
+  } */
