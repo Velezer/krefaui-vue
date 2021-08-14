@@ -3,9 +3,12 @@
     <img src="@/assets/elements/Blue_Lock_Register.png" />
     <h3>Sudah punya akun ? <a href="#">Masuk</a></h3>
   </div>
-  <div id="video" class="col-sm-6">
+  <div class="col-sm-6">
+  <div id="video" >
     <img src="@/assets/elements/Blue_Icon_Profile.png" width="320" />
   </div>
+  </div>
+
   <div class="col-sm-5">
     <form>
       <div class="form-group">
@@ -48,7 +51,7 @@ export default {
   props: ["id"],
   data() {
     return {
-      config: { width: 400, height: 300, refreshTime: 175 },
+      config: { width: 500, height: 500, refreshTime: 175 },
     };
   },
   created() {
