@@ -14,7 +14,11 @@
     </div>
   </div>
 </template>
+   
 
+
+
+   
 <script>
 import Webcam from "webcamjs";
 
