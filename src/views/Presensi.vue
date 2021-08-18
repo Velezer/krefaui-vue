@@ -5,7 +5,7 @@
       
       <div id="video">
         
-        <img src="@/assets/elements/Blue_Icon_Profile.png" />
+        <img src="@/assets/elements/Blue_Icon_Profile.png"/>
       </div>
     </div>
     
@@ -68,8 +68,11 @@ export default {
   padding-top: 50px;
 }
 
-.col-sm-7{
-  
+.col-sm-7 img{
+  width: 450px;
+  padding-left: 60px;
+  padding-top: 120px;
 }
+
 </style>
 
