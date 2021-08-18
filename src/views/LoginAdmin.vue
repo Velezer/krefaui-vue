@@ -47,7 +47,7 @@ export default {
     };
   },
   created() {
-    // this.loginBasicAuth();
+    this.loginBasicAuth();
   },
   methods: {
     loginBasicAuth() {
@@ -61,17 +61,19 @@ export default {
           },
           {
             auth: {
-              username: "testclient",
-              password: "testsecret",
+              username: "krefa",
+              password: "krefa",
             },
           }
         )
         .then((res) => {
+          console.log(res)
           localStorage.setItem("access-token", res.data.access_token);
           localStorage.setItem("refresh-token", res.data.refresh_token);
           this.$router.go(-1);
         })
         .catch((err) => {
+          console.log(err)
           localStorage.removeItem("access-token"); // if the request fails, remove any possible user token if possible
           localStorage.removeItem("refresh-token"); // if the request fails, remove any possible user token if possible
           alert(err);

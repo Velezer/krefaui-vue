@@ -5,7 +5,9 @@
       <h2>Selamat Datang</h2>
       <h2>di KreFa!</h2>
       <p>Lorem Ipsum dolor sit amet,<br />Consectular elit</p>
-      <a href="#"><img src="@/assets/elements/button.png" width="150" alt="" /></a>
+      <router-link :to="{ name: 'Events' }">
+        <img src="@/assets/elements/button.png" width="150" alt="" />
+      </router-link>
     </div>
     <div class="col-sm-6">
       <img src="@/assets/elements/landing_page_illustration.png" width="330" />
@@ -28,6 +30,4 @@
 .col-sm-5 img {
   margin: 20px;
 } */
-
-
 </style>

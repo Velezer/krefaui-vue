@@ -3,7 +3,9 @@
     <ul>
       <div class="image">
         <h6>
-          <a href="#"><img src="@/assets/elements/normal.png" width="150" alt="" /></a>
+          <router-link :to="{ name: 'Home' }">
+            <img src="@/assets/elements/normal.png" width="150" alt="" />
+          </router-link>
         </h6>
       </div>
       <div class="Text">
