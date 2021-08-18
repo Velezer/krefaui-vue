@@ -3,9 +3,9 @@
     <img src="@/assets/elements/Blue_Lock_Register.png" />
     <h3>Sudah punya akun ? <a href="#">Masuk</a></h3>
   </div>
-  <div class="col-sm-6">
+  <div  class="col-sm-6" style="padding-top: 0px;">
   <div id="video" >
-    <img src="@/assets/elements/Blue_Icon_Profile.png" width="320" />
+    <img src="@/assets/elements/Blue_Icon_Profile.png" width="420" />
   </div>
   </div>
 
@@ -73,9 +73,9 @@ export default {
 .container {
   padding-top: 100px;
 }
-.col-sm-6 {
+.col-sm-6 img{
+  padding-left: 90px;
   padding-top: 100px;
-  padding-left: 370px;
 }
 .col-sm-5 {
   padding-top: 100px;
