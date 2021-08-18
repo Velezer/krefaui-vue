@@ -1,6 +1,4 @@
 <template>
-
-
   <div class="container text-center">
     <img src="@/assets/elements/Blue_Lock_Login.png" />
   </div>
@@ -17,17 +15,18 @@
     <h3>Belum punya akun ? <a href="#">Mendaftar</a></h3>
   </div>
   <div class="col-sm-5">
-    <form>
+    <form id="form-login">
       <div class="form-group">
-        <input type="text" placeholder="Username" />
+        <input type="text" v-model.trim="username" name="username" placeholder="Username" />
       </div>
       <div class="form-group">
-        <input type="text" placeholder="Password" />
+        <input type="text" v-model.trim.lazy="password" name="password" placeholder="Password" />
       </div>
     </form>
-    <button type="button3" class="btn2">Masuk</button>
+    <button type="button3" class="btn2" v-on:click="getToken">Masuk</button>
     <button type="button4" class="btn3">Lupa Password</button>
   </div>
+
 
   <br />
   <br />
@@ -47,33 +46,32 @@ export default {
     };
   },
   created() {
-    this.loginBasicAuth();
   },
   methods: {
-    loginBasicAuth() {
+    getToken() {
       axios
         .post(
           this.urlData + this.sessionEndPoint,
           {
             grant_type: "password",
-            username: "krefa",
-            password: "krefa",
+            username: this.username,
+            password: this.password,
           },
           {
             auth: {
-              username: "krefa",
-              password: "krefa",
+              username: this.username,
+              password: this.username,
             },
           }
         )
         .then((res) => {
-          console.log(res)
+          console.log(res);
           localStorage.setItem("access-token", res.data.access_token);
           localStorage.setItem("refresh-token", res.data.refresh_token);
           this.$router.go(-1);
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
           localStorage.removeItem("access-token"); // if the request fails, remove any possible user token if possible
           localStorage.removeItem("refresh-token"); // if the request fails, remove any possible user token if possible
           alert(err);
