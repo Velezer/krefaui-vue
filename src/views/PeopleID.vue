@@ -1,12 +1,8 @@
 <template>
   <div class="container">
     <table>
-        <div>
-        <img src="personData.foto" alt="" />
-        <h3>{{ personData.nama }}</h3>
-        <h3>{{ personData.whatsapp }}</h3>
-        <h3>{{ personData.alamat }}</h3>
-      </div>
+      <img :src="personData.foto" :alt="personData.nama" width="300" />
+      <h3>{{ personData.nama }}</h3>
     </table>
     <h3>Pernah Menghadiri Event Berikut:</h3>
     <table style="width: 85%">

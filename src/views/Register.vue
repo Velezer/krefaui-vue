@@ -1,12 +1,12 @@
 <template>
   <div class="container text-center">
     <img src="@/assets/elements/Blue_Lock_Register.png" />
-    <h3>Sudah punya akun ? <a href="#">Masuk</a></h3>
+    <!-- <h3>Sudah punya akun ? <a href="#">Masuk</a></h3> -->
   </div>
-  <div  class="col-sm-6" style="padding-top: 0px;">
-  <div id="video" >
-    <img src="@/assets/elements/Blue_Icon_Profile.png" width="420" />
-  </div>
+  <div class="col-sm-6" style="padding-top: 0px">
+    <div id="video">
+      <img src="@/assets/elements/Blue_Icon_Profile.png" width="420" />
+    </div>
   </div>
 
   <div class="col-sm-5">
@@ -25,16 +25,17 @@
       </div>
     </form>
 
-    <input type="checkbox" class="agreement" value="agreement" />
+    <!-- <input type="checkbox" class="agreement" value="agreement" />
     <label for="agreement"
       >Saya telah menyetujui kebijakan penggunaan<br />
       dan kebijakan privasi atas platform KreFa</label
-    ><br />
+    ><br /> -->
   </div>
   <div class="col-sm-12">
-
-    <button type="button4" class="btn13" style="border-color: #26c7e7">Ambil Foto</button>
-    <button type="button5" class="btn14">Daftar</button>
+    <button type="button4" class="btn13" style="border-color: #26c7e7">
+      Ambil Foto
+    </button>
+    <!-- <button type="button5" class="btn14">Daftar</button> -->
   </div>
 
   <br />
@@ -46,19 +47,17 @@
 
 <script>
 import Webcam from "webcamjs";
-const config = require("../config/config.js").default
+const config = require("../config/config.js").default;
 
 export default {
   props: ["id"],
   data() {
-    return {
-    };
+    return {};
   },
   created() {
     Webcam.set(config.webcam);
     setTimeout(() => {
       Webcam.attach("#video");
-      
     }, 5000);
   },
 };
@@ -68,7 +67,7 @@ export default {
 .container {
   padding-top: 100px;
 }
-.col-sm-6 img{
+.col-sm-6 img {
   padding-left: 90px;
   padding-top: 100px;
 }
