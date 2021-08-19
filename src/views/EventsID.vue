@@ -16,7 +16,7 @@
       <tr v-for="(person, i) in attendance" :key="person.id">
         <td>{{ i + 1 }}</td>
         <td>
-          <router-link :to="{ name: 'People_id', params: { id: person.id } }">
+          <router-link :to="{ name: 'People_id', params: { id: person.id_people } }">
             {{ person.nama }}
           </router-link>
         </td>
