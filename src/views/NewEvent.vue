@@ -3,23 +3,50 @@
     <img src="@/assets/elements/Blue_Calendar.png" />
   </div>
   <div class="col-sm-6">
-    <form>
+    <form id="form-event">
       <div class="form-group">
-        <label for="comment">Deskripsi lengkap acara:</label>
-        <input type="text" placeholder="Nama Acara" />
+        <label for="comment">Judul Acara</label>
+        <input 
+          type="text"
+          v-model.trim="judul"
+          name="judul"
+          placeholder="Judul"
+        />
+        <p style="color:red" v-if="errors.judul">{{ errors.judul }}</p>
       </div>
       <div class="form-group">
-        <label for="comment">Deskripsi lengkap acara:</label>
-        <input type="text" placeholder="Pilih kategori" />
+        <label for="comment">Pembicara</label>
+        <input
+          type="text"
+          v-model.trim="pembicara"
+          name="pembicara"
+          placeholder="Pembicara"
+        />
+        <p style="color:red" v-if="errors.pembicara">{{ errors.pembicara }}</p>
       </div>
       <div class="form-group">
-        <label for="comment">Deskripsi lengkap acara:</label>
-        <input type="text" placeholder="Tanggal Acara" />
+        <label for="comment">Tempat Pelaksanaan</label>
+        <input
+          type="text"
+          v-model.trim="tempat"
+          name="tempat"
+          placeholder="Tempat"
+        />
+        <p style="color:red" v-if="errors.tempat">{{ errors.tempat }}</p>
       </div>
       <div class="form-group">
-        <label for="comment">Deskripsi lengkap acara:</label>
-        <input type="text" placeholder="cth. Jam 7.30 - 9.30" />
+        <label for="comment">Tanggal Pelaksanaan</label>
+        <input
+          type="text"
+          v-model.trim="tanggal"
+          name="tanggal"
+          placeholder="YYYY-MM-DD"
+        />
+        <p style="color:red" v-if="errors.tanggal">{{ errors.tanggal }}</p>
       </div>
+    <button type="button3" class="btn2" v-on:click.prevent="createEvent">Buat</button>
+
+      <!--       
       <div class="form-group">
         <label for="comment">Deskripsi lengkap acara:</label>
         <input type="text" placeholder="Gratis / Berbayar" />
@@ -55,9 +82,9 @@
       <div class="form-group">
         <label for="comment">Deskripsi lengkap acara:</label>
         <input type="text" placeholder="*Max. 70 MB" />
-      </div>
+      </div> -->
     </form>
-  </div>
+    <!-- </div>
   <div class="comment">
     <div class="form-group">
       <label for="comment">Deskripsi lengkap acara:</label>
@@ -67,17 +94,17 @@
         id="comment"
         placeholder="Tulis penjelasan acara secara detail"
       ></textarea>
-    </div>
+    </div> -->
   </div>
 
   <div class="container text-center">
-    <input type="checkbox" class="agreement" value="agreement" />
+    <!-- <input type="checkbox" class="agreement" value="agreement" />
     <label for="agreement"
       >Saya telah menyetujui kebijakan penggunaan<br />
       dan kebijakan privasi atas platform KreFa</label
     ><br />
-    <br />
-    <button type="button3" class="btn2">Masuk</button>
+    <br /> -->
+    <!-- <button type="button3" class="btn2" v-on:click="createEvent">Buat</button> -->
   </div>
 
   <br />
@@ -87,7 +114,58 @@
   <footer class="container-fluid"></footer>
 </template>
 
+<script>
+const axios = require("axios").default;
+const config = require("../config/config.js").default;
 
+export default {
+  data() {
+    return {
+      judul: "",
+      pembicara: "",
+      tempat: "",
+      tanggal: "",
+      errors: "",
+    };
+  },
+  created() {
+    axios.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${localStorage.getItem("access-token")}`;
+  },
+  methods: {
+    createEvent() {
+      let formData = new FormData()
+      formData.append('judul', this.judul)
+      formData.append('pembicara', this.pembicara)
+      formData.append('tempat', this.tempat)
+      formData.append('tanggal', this.tanggal)
+      axios({
+        method: "post",
+        url: config.urls.events,
+        data: formData,
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+        .then((res) => {
+          if (res.status == 201){
+            alert("Event baru berhasil dibuat")
+            this.$router.push({ name: "Events" });
+          }
+        })
+        .catch((err) => {
+          console.log(err.response);
+
+          if (err.response.status == 400) {
+            this.errors = err.response.data.messages;
+          }
+          if (err.response.status == 401) {
+            this.$router.push({ name: "Login" });
+          }
+        });
+    },
+  },
+};
+</script>
 
   <style>
 .container {

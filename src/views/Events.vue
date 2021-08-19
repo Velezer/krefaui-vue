@@ -2,10 +2,12 @@
   <div class="container">
     <h1>Daftar Events</h1>
     <div class="col-sm-5">
-      <!-- <h3>Event : Peresmian KreFa</h3> -->
+      <router-link :to="{ name: 'NewEvent' }">
+        <button type="button2" class="btn btn-primary">Buat Event Baru</button>
+      </router-link>
     </div>
     <div class="col-sm-5">
-      <h3>Hari : Senin,1 Juni 2021</h3>
+      <h3></h3>
     </div>
 
     <table style="width: 85%">
@@ -17,8 +19,8 @@
         <th>Tanggal</th>
       </tr>
 
-      <tr v-for="event in events" :key="event.id">
-        <td>{{ event.id }}</td>
+      <tr v-for="(event, i) in events" :key="event.id">
+        <td>{{ i + 1 }}</td>
         <td>
           <router-link :to="{ name: 'Events_id', params: { id: event.id } }">
             {{ event.judul }}
@@ -31,9 +33,9 @@
     </table>
   </div>
 
-  <br>
-  <br>
-  <br>
+  <br />
+  <br />
+  <br />
 </template>
 
 

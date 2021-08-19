@@ -9,7 +9,7 @@
         </h6>
       </div>
       <div class="Text">
-        <a href="#">Kreasi Face Recognition</a>
+        <a href="#">Kreasi Face Attendance</a>
         <ul class="nav navbar-nav navbar-right">
           <button type="button1" class="btn btn-link">Tentang Kami</button>
           <button type="button2" class="btn btn-primary">Daftar Masuk</button>
