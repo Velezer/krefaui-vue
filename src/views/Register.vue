@@ -46,21 +46,16 @@
 
 <script>
 import Webcam from "webcamjs";
+const config = require("../config/config.js").default
 
 export default {
   props: ["id"],
   data() {
     return {
-      config: { width: 500, height: 500, refreshTime: 175 },
     };
   },
   created() {
-    Webcam.set({
-      width: this.config.width, // 4
-      height: this.config.height, // 3
-      image_format: "jpeg",
-      jpeg_quality: 70,
-    });
+    Webcam.set(config.webcam);
     setTimeout(() => {
       Webcam.attach("#video");
       

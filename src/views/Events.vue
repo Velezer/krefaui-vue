@@ -7,6 +7,9 @@
       </router-link>
     </div>
     <div class="col-sm-5">
+      <router-link :to="{ name: 'People' }">
+        <button type="button2" class="btn btn-primary">Database Jamaah</button>
+      </router-link>
       <h3></h3>
     </div>
 
@@ -63,7 +66,7 @@ export default {
         .get(this.urlEvents + "/api/events")
         .then((res) => {
           let data = res.data;
-          this.events = data.data;
+          this.events = data.data.reverse();
         })
         .catch((err) => {
           if (err.response.status == 401) {

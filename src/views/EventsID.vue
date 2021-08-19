@@ -1,9 +1,14 @@
 <template>
   <div class="container">
     <h1>Daftar Peserta <br />{{ eventName }}</h1>
-    <div class="col-sm-5"></div>
     <div class="col-sm-5">
-      <h3>Hari : Senin,1 Juni 2021</h3>
+      <router-link :to="{ name: 'Presensi', params: { id: id }  }">
+        <button type="button2" class="btn btn-primary">Presensi</button>
+      </router-link>
+    </div>
+    <div class="col-sm-5">
+      <!-- <h3>Hari : Senin,1 Juni 2021</h3> -->
+      <h3></h3>
     </div>
 
     <table style="width: 85%">
