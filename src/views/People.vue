@@ -25,18 +25,17 @@
 
       <tr v-for="(person, i) in people" :key="person.id">
         <td>{{ i + 1 }}</td>
-        <td><img :src="person.foto" :alt="person.nama" width="100">
-        </td>
+        <td><img :src="person.foto" :alt="person.nama" width="100" /></td>
         <td>
           <router-link :to="{ name: 'People_id', params: { id: person.id } }">
             {{ person.nama }}
           </router-link>
         </td>
-        <td>{{person.whatsapp}}</td>
-        <td>{{person.alamat}}</td>
+        <td>{{ person.whatsapp }}</td>
+        <td>{{ person.alamat }}</td>
         <td>
           <!-- <button>edit</button> -->
-          <button style="color:red" v-on:click="deleteEvents(event)">X</button>
+          <button style="color: red" v-on:click="deletePeople(event)">X</button>
         </td>
       </tr>
     </table>
@@ -45,7 +44,7 @@
 
 <script>
 const axios = require("axios").default;
-const config = require("../config/config.js").default
+const config = require("../config/config.js").default;
 
 export default {
   props: ["id"],
@@ -75,11 +74,14 @@ export default {
         });
     },
     deletePeople(item) {
+      if (!confirm("Yakin?")) {
+        return;
+      }
       axios
-        .delete(this.urlPeople + "/api/people/" + item.id)
+        .delete(config.urls.person(item.id))
         .then((res) => {
-          if (res.status == 200){
-            this.events = this.events.filter(event => event !== item)
+          if (res.status == 200) {
+            this.events = this.events.filter((event) => event !== item);
           }
         })
         .catch((err) => {

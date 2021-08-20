@@ -77,13 +77,15 @@ export default {
   created() {},
   methods: {
     attachCam() {
-      setTimeout(() => {
-        let camNotAttached = document.querySelector("#video video") === null;
-        if (this.nama && this.whatsapp && this.alamat && camNotAttached) {
-          Webcam.set(config.webcam);
-          Webcam.attach("#video");
-        }
-      }, 10000);
+      if (this.nama && this.whatsapp && this.alamat) {
+        setTimeout(() => {
+          let camNotAttached = document.querySelector("#video video") === null;
+          if (camNotAttached) {
+            Webcam.set(config.webcam);
+            Webcam.attach("#video");
+          }
+        }, 10000);
+      }
     },
   },
 };

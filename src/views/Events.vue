@@ -35,7 +35,7 @@
         <td>{{ event.tanggal }}</td>
         <td>
           <!-- <button>edit</button> -->
-          <button style="color:red" v-on:click="deleteEvents(event)">X</button>
+          <button style="color: red" v-on:click="deleteEvents(event)">X</button>
         </td>
       </tr>
     </table>
@@ -49,6 +49,7 @@
 
 <script>
 const axios = require("axios").default;
+const config = require("../config/config.js").default;
 
 export default {
   // props: ["id"],
@@ -66,9 +67,8 @@ export default {
   },
   methods: {
     getEvents() {
-      console.log(this.urlEvents + "/api/events");
       axios
-        .get(this.urlEvents + "/api/events")
+        .get(config.urls.events)
         .then((res) => {
           let data = res.data;
           this.events = data.data.reverse();
@@ -81,14 +81,14 @@ export default {
     },
     deleteEvents(item) {
       axios
-        .delete(this.urlEvents + "/api/events/" + item.id)
+        .delete(config.urls.event(item.id))
         .then((res) => {
-          if (res.status == 200){
-            this.events = this.events.filter(event => event !== item)
+          if (res.status == 200) {
+            this.events = this.events.filter((event) => event !== item);
           }
         })
         .catch((err) => {
-          console.log(err.response)
+          console.log(err.response);
           if (err.response.status == 401) {
             this.$router.push({ name: "Login" });
           }
