@@ -12,16 +12,32 @@
   <div class="col-sm-5">
     <form>
       <div class="form-group">
-        <input type="text" placeholder="Nama Lengkap*" />
+        <input
+          v-on:input="attachCam"
+          v-model.trim="nama"
+          type="text"
+          placeholder="Nama Lengkap*"
+        />
       </div>
       <div class="form-group">
-        <input type="text" placeholder="NO. WhatsApp*" />
+        <input
+          v-on:input="attachCam"
+          v-model.trim="whatsapp"
+          type="text"
+          placeholder="NO. WhatsApp*"
+        />
       </div>
-      <div class="form-group">
+      <!-- <div class="form-group">
         <input type="text" placeholder="Instagram*" id="usr" />
-      </div>
+      </div> -->
       <div class="form-group">
-        <input type="text" placeholder="Almat Rumah*" id="usr" />
+        <input
+          v-on:input="attachCam"
+          v-model.trim="alamat"
+          type="text"
+          placeholder="Almat Rumah*"
+          id="usr"
+        />
       </div>
     </form>
 
@@ -31,12 +47,12 @@
       dan kebijakan privasi atas platform KreFa</label
     ><br /> -->
   </div>
-  <div class="col-sm-12">
+  <!-- <div class="col-sm-12">
     <button type="button4" class="btn13" style="border-color: #26c7e7">
       Ambil Foto
     </button>
-    <!-- <button type="button5" class="btn14">Daftar</button> -->
-  </div>
+    <button type="button5" class="btn14">Daftar</button>
+  </div> -->
 
   <br />
   <br />
@@ -52,13 +68,23 @@ const config = require("../config/config.js").default;
 export default {
   props: ["id"],
   data() {
-    return {};
+    return {
+      nama: "",
+      whatsapp: "",
+      alamat: "",
+    };
   },
-  created() {
-    Webcam.set(config.webcam);
-    setTimeout(() => {
-      Webcam.attach("#video");
-    }, 5000);
+  created() {},
+  methods: {
+    attachCam() {
+      setTimeout(() => {
+        let camNotAttached = document.querySelector("#video video") === null;
+        if (this.nama && this.whatsapp && this.alamat && camNotAttached) {
+          Webcam.set(config.webcam);
+          Webcam.attach("#video");
+        }
+      }, 10000);
+    },
   },
 };
 </script>
