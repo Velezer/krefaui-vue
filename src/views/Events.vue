@@ -20,6 +20,7 @@
         <th>Pembicara</th>
         <th>Tempat</th>
         <th>Tanggal</th>
+        <th>Action</th>
       </tr>
 
       <tr v-for="(event, i) in events" :key="event.id">
@@ -32,6 +33,10 @@
         <td>{{ event.pembicara }}</td>
         <td>{{ event.tempat }}</td>
         <td>{{ event.tanggal }}</td>
+        <td>
+          <!-- <button>edit</button> -->
+          <button style="color:red" v-on:click="deleteEvents(event)">X</button>
+        </td>
       </tr>
     </table>
   </div>
@@ -49,7 +54,7 @@ export default {
   // props: ["id"],
   data() {
     return {
-      events: [],
+      events: {},
       urlEvents: `http://${location.hostname}:8080`,
     };
   },
@@ -74,16 +79,16 @@ export default {
           }
         });
     },
-    deleteEvents(id) {
+    deleteEvents(item) {
       axios
-        .delete(this.urlEvents + "/api/events/" + id)
+        .delete(this.urlEvents + "/api/events/" + item.id)
         .then((res) => {
-          let data = res.data;
-          if (data.status == "success") {
-            alert(data);
+          if (res.status == 200){
+            this.events = this.events.filter(event => event !== item)
           }
         })
         .catch((err) => {
+          console.log(err.response)
           if (err.response.status == 401) {
             this.$router.push({ name: "Login" });
           }

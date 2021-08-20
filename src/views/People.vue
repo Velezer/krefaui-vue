@@ -20,6 +20,7 @@
         <th>Nama</th>
         <th>Whatsapp</th>
         <th>Alamat</th>
+        <th>Action</th>
       </tr>
 
       <tr v-for="(person, i) in people" :key="person.id">
@@ -33,6 +34,10 @@
         </td>
         <td>{{person.whatsapp}}</td>
         <td>{{person.alamat}}</td>
+        <td>
+          <!-- <button>edit</button> -->
+          <button style="color:red" v-on:click="deleteEvents(event)">X</button>
+        </td>
       </tr>
     </table>
   </div>
@@ -69,13 +74,12 @@ export default {
           }
         });
     },
-    deletePeople(id) {
+    deletePeople(item) {
       axios
-        .delete(this.urlPeople + "/api/people/" + id)
+        .delete(this.urlPeople + "/api/people/" + item.id)
         .then((res) => {
-          let data = res.data;
-          if (data.status == "success") {
-            alert(data);
+          if (res.status == 200){
+            this.events = this.events.filter(event => event !== item)
           }
         })
         .catch((err) => {
