@@ -80,6 +80,9 @@ export default {
         });
     },
     deleteEvents(item) {
+      if (!confirm("Yakin?")) {
+        return;
+      }
       axios
         .delete(config.urls.event(item.id))
         .then((res) => {
