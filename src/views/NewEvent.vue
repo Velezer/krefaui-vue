@@ -12,7 +12,7 @@
           name="judul"
           placeholder="Judul"
         />
-        <p style="color:red" v-if="errors.judul">{{ errors.judul }}</p>
+        <small class="error-message" v-if="errors.judul">{{ errors.judul }}</small>
       </div>
       <div class="form-group">
         <label for="comment">Pembicara</label>
@@ -22,7 +22,7 @@
           name="pembicara"
           placeholder="Pembicara"
         />
-        <p style="color:red" v-if="errors.pembicara">{{ errors.pembicara }}</p>
+        <small class="error-message" v-if="errors.pembicara">{{ errors.pembicara }}</small>
       </div>
       <div class="form-group">
         <label for="comment">Tempat Pelaksanaan</label>
@@ -32,7 +32,7 @@
           name="tempat"
           placeholder="Tempat"
         />
-        <p style="color:red" v-if="errors.tempat">{{ errors.tempat }}</p>
+        <small class="error-message" v-if="errors.tempat">{{ errors.tempat }}</small>
       </div>
       <div class="form-group">
         <label for="comment">Tanggal Pelaksanaan</label>
@@ -42,7 +42,7 @@
           name="tanggal"
           placeholder="YYYY-MM-DD"
         />
-        <p style="color:red" v-if="errors.tanggal">{{ errors.tanggal }}</p>
+        <p class="error-message" v-if="errors.tanggal">{{ errors.tanggal }}</p>
       </div>
     <button type="button3" class="btn2" v-on:click.prevent="createEvent">Buat</button>
 
