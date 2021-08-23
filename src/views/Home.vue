@@ -9,7 +9,7 @@
         <img src="@/assets/elements/button.png" width="150" alt="" />
       </router-link>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-5">
       <img src="@/assets/elements/landing_page_illustration.png" width="330" />
     </div>
   </div>
