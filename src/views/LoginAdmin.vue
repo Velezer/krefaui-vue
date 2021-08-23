@@ -17,16 +17,25 @@
   <div class="col-sm-5">
     <form id="form-login">
       <div class="form-group">
-        <input type="text" v-model.trim="username" name="username" placeholder="Username" />
+        <input
+          type="text"
+          v-model.trim="username"
+          name="username"
+          placeholder="Username"
+        />
       </div>
       <div class="form-group">
-        <input type="text" v-model.trim.lazy="password" name="password" placeholder="Password" />
+        <input
+          type="text"
+          v-model.trim.lazy="password"
+          name="password"
+          placeholder="Password"
+        />
       </div>
     </form>
     <button type="button3" class="btn2" v-on:click="getToken">Masuk</button>
     <button type="button4" class="btn3">Lupa Password</button>
   </div>
-
 
   <br />
   <br />
@@ -37,21 +46,25 @@
 
 <script>
 const axios = require("axios").default;
+const config = require("../config/config.js").default;
 
 export default {
   data() {
     return {
-      urlData: "http://" + location.hostname + ":8080",
-      sessionEndPoint: "/oauth2/login",
+      statusDataToken: 0,
+      statusFaceToken: 0,
     };
   },
-  created() {
-  },
+  created() {},
   methods: {
     getToken() {
+      this.getDataToken();
+      this.getFaceToken();
+    },
+    getDataToken() {
       axios
         .post(
-          this.urlData + this.sessionEndPoint,
+          config.urls.dataLogin,
           {
             grant_type: "password",
             username: this.username,
@@ -66,14 +79,38 @@ export default {
         )
         .then((res) => {
           console.log(res);
-          localStorage.setItem("access-token", res.data.access_token);
-          localStorage.setItem("refresh-token", res.data.refresh_token);
-          this.$router.go(-1);
+          this.statusDataToken = res.status;
+          localStorage.setItem(
+            config.localStorage.dataToken,
+            res.data.access_token
+          );
+          if (this.statusDataToken == 200 && this.statusFaceToken == 200) {
+            this.$router.go(-1);
+          }
         })
         .catch((err) => {
           console.log(err);
-          localStorage.removeItem("access-token"); // if the request fails, remove any possible user token if possible
-          localStorage.removeItem("refresh-token"); // if the request fails, remove any possible user token if possible
+          localStorage.removeItem(config.localStorage.dataToken); // if the request fails, remove any possible user token if possible
+          alert(err);
+        });
+    },
+    getFaceToken() {
+      axios
+        .post(config.urls.jwtLogin, {
+          username: this.username,
+          password: this.password,
+        })
+        .then((res) => {
+          console.log(res);
+          this.statusFaceToken = res.status;
+          localStorage.setItem(config.localStorage.gofaceToken, res.data.token);
+          if (this.statusDataToken == 200 && this.statusFaceToken == 200) {
+            this.$router.go(-1);
+          }
+        })
+        .catch((err) => {
+          console.log(err.response);
+          localStorage.removeItem(config.localStorage.gofaceToken); // if the request fails, remove any possible user token if possible
           alert(err);
         });
     },

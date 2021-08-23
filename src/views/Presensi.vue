@@ -1,14 +1,11 @@
 <template>
   <div class="container">
-    
     <div class="col-sm-7">
-      
       <div id="video">
-        
-        <img src="@/assets/elements/Blue_Icon_Profile.png"/>
+        <img src="@/assets/elements/Blue_Icon_Profile.png" />
       </div>
     </div>
-    
+
     <div class="col-sm-4" style="padding-top: 100px">
       <h2>Silahkan</h2>
       <h2>Hadapkan Wajah</h2>
@@ -26,19 +23,72 @@
 
 <script>
 import Webcam from "webcamjs";
-const config = require('../config/config.js').default
+const axios = require("axios").default;
+const config = require("../config/config.js").default;
 
 export default {
   props: ["id"],
   data() {
     return {
+      imageFile: [],
+      token: "",
     };
+  },
+  methods: {
+    beginDetectFace() {
+      setInterval(async () => {
+        this.findPerson();
+      }, 5000);
+    },
+    findPerson() {
+      let formData = new FormData();
+      Webcam.snap(function (data_uri) {
+        let base64 = data_uri.replace("data:image/jpeg;base64,", "");
+
+        let blob = Webcam.base64DecToArr(base64); //uint8array
+
+        let file = new File([blob], "image.jpg");
+        formData.append("file", file);
+      });
+
+      let token = localStorage.getItem(config.localStorage.gofaceToken);
+
+      axios({
+        method: "post",
+        url: config.urls.findFace,
+        data: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => {
+          if (res.status == 200) {
+            console.log(res.data);
+          }
+          // alert("Event baru berhasil dibuat");
+          // this.$router.push({ name: "Events" });
+        })
+        .catch((err) => {
+          console.log(err.response.data);
+
+          if (err.response.status == 400) {
+            let error = err.response.data.message;
+            if (error == "missing or malformed jwt") {
+              this.$router.push({ name: "Login" });
+            }
+          }
+          if (err.response.status == 401) {
+            this.$router.push({ name: "Login" });
+          }
+        });
+    },
   },
   created() {
     Webcam.set(config.webcam);
     setTimeout(() => {
       Webcam.attach("#video");
-      
+      this.beginDetectFace();
     }, 5000);
   },
 };
@@ -63,11 +113,10 @@ export default {
   padding-top: 50px;
 }
 
-.col-sm-7 img{
+.col-sm-7 img {
   width: 450px;
   padding-left: 60px;
   padding-top: 120px;
 }
-
 </style>
 
