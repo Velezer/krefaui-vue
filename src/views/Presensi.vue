@@ -13,8 +13,9 @@
       <p>
         Sistem kami akan medeteksi dan<br />memproses wajah anda secara otomatis
       </p>
+       <button type="button3" class="btn2" v-on:click="findPerson">Ambil gambar</button> 
     </div>
-  </div>
+  </div>s
 </template>
    
 
@@ -43,10 +44,10 @@ export default {
     findPerson() {
       let formData = new FormData();
       Webcam.snap(function (data_uri) {
+        console.log(data_uri);
         let base64 = data_uri.replace("data:image/jpeg;base64,", "");
 
         let blob = Webcam.base64DecToArr(base64); //uint8array
-
         let file = new File([blob], "image.jpg");
         formData.append("file", file);
       });
@@ -88,8 +89,8 @@ export default {
     Webcam.set(config.webcam);
     setTimeout(() => {
       Webcam.attach("#video");
-      this.beginDetectFace();
-    }, 5000);
+      // this.beginDetectFace();
+    }, 1000);
   },
 };
 </script>
