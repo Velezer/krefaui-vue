@@ -13,9 +13,12 @@
       <p>
         Sistem kami akan medeteksi dan<br />memproses wajah anda secara otomatis
       </p>
-       <button type="button3" class="btn2" v-on:click="findPerson">Ambil gambar</button> 
+      <button type="button3" class="btn2" v-on:click="findPerson">
+        Ambil gambar
+      </button>
     </div>
-  </div>s
+  </div>
+  s
 </template>
    
 
@@ -44,7 +47,6 @@ export default {
     findPerson() {
       let formData = new FormData();
       Webcam.snap(function (data_uri) {
-        console.log(data_uri);
         let base64 = data_uri.replace("data:image/jpeg;base64,", "");
 
         let blob = Webcam.base64DecToArr(base64); //uint8array
@@ -65,7 +67,17 @@ export default {
       })
         .then((res) => {
           if (res.status == 200) {
-            console.log(res.data);
+            let detected = res.data.data;
+            for (const i in detected) {
+              const person = detected[i];
+              if (person.name == "Unknown") {
+                return this.$router.push({ name: "Register" });
+              }
+              if (confirm(person.name)) {
+                // call_post_data_mysql
+                break;
+              }
+            }
           }
           // alert("Event baru berhasil dibuat");
           // this.$router.push({ name: "Events" });

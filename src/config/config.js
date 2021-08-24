@@ -17,8 +17,8 @@ let config = {
         // jwtRegister: `${faceUrl}/jwt/register`,
     },
     webcam: {
-        width: 400, // 4
-        height: 300, // 3
+        width: 600, // 4
+        height: 450, // 3
         image_format: "jpeg",
         jpeg_quality: 70,
     },

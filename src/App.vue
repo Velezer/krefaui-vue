@@ -12,7 +12,9 @@
         <a href="#">Kreasi Face Attendance</a>
         <ul class="nav navbar-nav navbar-right">
           <button type="button1" class="btn btn-link">Tentang Kami</button>
-          <button type="button2" class="btn btn-primary">Daftar Masuk</button>
+          <router-link :to="{ name: 'Register' }">
+          <button type="button2" class="btn btn-primary">Register Wajah</button>
+          </router-link>
         </ul>
       </div>
     </ul>

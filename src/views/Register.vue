@@ -3,13 +3,13 @@
     <img src="@/assets/elements/Blue_Lock_Register.png" />
     <!-- <h3>Sudah punya akun ? <a href="#">Masuk</a></h3> -->
   </div>
-  <div class="col-sm-6" style="padding-top: 0px">
+  <div class="col-sm-5" style="padding-top: 0px">
     <div id="video">
       <img src="@/assets/elements/Blue_Icon_Profile.png" width="420" />
     </div>
   </div>
 
-  <div class="col-sm-5">
+  <div class="col-sm-6">
     <form>
       <div class="form-group">
         <input
@@ -39,6 +39,10 @@
           id="usr"
         />
       </div>
+
+      <button type="button3" class="btn2" v-on:click.prevent="register">
+        Ambil gambar
+      </button>
     </form>
 
     <!-- <input type="checkbox" class="agreement" value="agreement" />
@@ -63,6 +67,8 @@
 
 <script>
 import Webcam from "webcamjs";
+const axios = require("axios").default;
+
 const config = require("../config/config.js").default;
 
 export default {
@@ -84,8 +90,83 @@ export default {
             Webcam.set(config.webcam);
             Webcam.attach("#video");
           }
-        }, 10000);
+        }, 1000);
       }
+    },
+    register() {
+      // this.regData()
+      this.regFace();
+    },
+    updateFace(formData,token){
+       axios({
+        method: "put",
+        url: config.urls.registerFace,
+        data: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then()
+    },
+    regFace() {
+      let formData = new FormData();
+      formData.append("id", this.whatsapp);
+      formData.append("name", this.nama);
+
+      Webcam.snap(function (data_uri) {
+        let base64 = data_uri.replace("data:image/jpeg;base64,", "");
+
+        let blob = Webcam.base64DecToArr(base64); //uint8array
+        let file = new File([blob], "image.jpg");
+        formData.append("file", file);
+      });
+
+      let token = localStorage.getItem(config.localStorage.gofaceToken);
+
+      axios({
+        method: "post",
+        url: config.urls.registerFace,
+        data: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => {
+          console.log(res)
+          if (res.status == 201) {
+            // alert(res.data.detail)
+            // let detected = res.data.data;
+            for (let i = 0; i < 5; i++) {
+              this.updateFace(formData,token)
+            }
+            alert('Database wajah ditambahkan')
+          // this.$router.push({ name: "Presensi" });
+            
+          }
+          // alert("Event baru berhasil dibuat");
+        })
+        .catch((err) => {
+          console.log(err.response.status)
+          if (err.response.status == 409) {
+            for (let i = 0; i < 5; i++) {
+              
+              this.updateFace(formData,token)
+            }
+            alert('Database wajah diupdate')
+
+          }
+          if (err.response.status == 400) {
+            let error = err.response.data.message;
+            if (error == "missing or malformed jwt") {
+              this.$router.push({ name: "Login" });
+            }
+          }
+          if (err.response.status == 401) {
+            this.$router.push({ name: "Login" });
+          }
+        });
     },
   },
 };
