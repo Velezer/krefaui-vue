@@ -62,7 +62,7 @@ export default {
   created() {
     axios.defaults.headers.common[
       "Authorization"
-    ] = `Bearer ${localStorage.getItem("access-token")}`;
+    ] = `Bearer ${localStorage.getItem(config.localStorage.dataToken)}`;
     this.getEvents();
   },
   methods: {

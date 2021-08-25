@@ -38,6 +38,7 @@
 
 <script>
 const axios = require("axios").default;
+const config = require("../config/config.js").default;
 
 export default {
   props: ["id"],
@@ -51,7 +52,7 @@ export default {
   created() {
     axios.defaults.headers.common[
       "Authorization"
-    ] = `Bearer ${localStorage.getItem("access-token")}`;
+    ] = `Bearer ${localStorage.getItem(config.localStorage.dataToken)}`;
     this.getAttendanceById(this.id);
   },
   methods: {

@@ -78,9 +78,26 @@ export default {
       nama: "",
       whatsapp: "",
       alamat: "",
+      statusData: 0,
+      statusFace: 0,
     };
   },
   created() {},
+  computed: {
+    formData() {
+      let formData = new FormData();
+      formData.append("id", this.whatsapp);
+
+      Webcam.snap(function (data_uri) {
+        let base64 = data_uri.replace("data:image/jpeg;base64,", "");
+
+        let blob = Webcam.base64DecToArr(base64); //uint8array
+        let file = new File([blob], "image.jpg");
+        formData.append("file", file);
+      });
+      return formData;
+    },
+  },
   methods: {
     attachCam() {
       if (this.nama && this.whatsapp && this.alamat) {
@@ -94,11 +111,11 @@ export default {
       }
     },
     register() {
-      // this.regData()
+      this.regData();
       this.regFace();
     },
-    updateFace(formData,token){
-       axios({
+    updateFace(formData, token) {
+      axios({
         method: "put",
         url: config.urls.registerFace,
         data: formData,
@@ -106,21 +123,13 @@ export default {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
         },
-      })
-        .then()
+      }).then();
     },
-    regFace() {
-      let formData = new FormData();
-      formData.append("id", this.whatsapp);
-      formData.append("name", this.nama);
-
-      Webcam.snap(function (data_uri) {
-        let base64 = data_uri.replace("data:image/jpeg;base64,", "");
-
-        let blob = Webcam.base64DecToArr(base64); //uint8array
-        let file = new File([blob], "image.jpg");
-        formData.append("file", file);
-      });
+    regData() {
+      let formData = this.formData();
+      formData.append("nama", this.nama);
+      formData.append("whatsapp", this.whatsapp);
+      formData.append("alamat", this.alamat);
 
       let token = localStorage.getItem(config.localStorage.gofaceToken);
 
@@ -134,28 +143,76 @@ export default {
         },
       })
         .then((res) => {
-          console.log(res)
+          console.log(res);
           if (res.status == 201) {
             // alert(res.data.detail)
             // let detected = res.data.data;
             for (let i = 0; i < 5; i++) {
-              this.updateFace(formData,token)
+              this.updateFace(formData, token);
             }
-            alert('Database wajah ditambahkan')
-          // this.$router.push({ name: "Presensi" });
-            
+            if (this.statusData && this.statusFace) {
+              alert("Database wajah ditambahkan");
+            }
+            // this.$router.push({ name: "Presensi" });
           }
           // alert("Event baru berhasil dibuat");
         })
         .catch((err) => {
-          console.log(err.response.status)
+          console.log(err.response.status);
           if (err.response.status == 409) {
             for (let i = 0; i < 5; i++) {
-              
-              this.updateFace(formData,token)
+              this.updateFace(formData, token);
             }
-            alert('Database wajah diupdate')
+            alert("Database wajah diupdate");
+          }
+          if (err.response.status == 400) {
+            let error = err.response.data.message;
+            if (error == "missing or malformed jwt") {
+              this.$router.push({ name: "Login" });
+            }
+          }
+          if (err.response.status == 401) {
+            this.$router.push({ name: "Login" });
+          }
+        });
+    },
+    regFace() {
+      let formData = this.formData();
+      formData.append("name", this.nama);
 
+      let token = localStorage.getItem(config.localStorage.gofaceToken);
+
+      axios({
+        method: "post",
+        url: config.urls.registerFace,
+        data: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => {
+          console.log(res);
+          if (res.status == 201) {
+            // alert(res.data.detail)
+            // let detected = res.data.data;
+            for (let i = 0; i < 5; i++) {
+              this.updateFace(formData, token);
+            }
+            if (this.statusData && this.statusFace) {
+              alert("Database wajah ditambahkan");
+            }
+            // this.$router.push({ name: "Presensi" });
+          }
+          // alert("Event baru berhasil dibuat");
+        })
+        .catch((err) => {
+          console.log(err.response.status);
+          if (err.response.status == 409) {
+            for (let i = 0; i < 5; i++) {
+              this.updateFace(formData, token);
+            }
+            alert("Database wajah diupdate");
           }
           if (err.response.status == 400) {
             let error = err.response.data.message;
