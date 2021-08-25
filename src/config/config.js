@@ -8,6 +8,7 @@ let config = {
         people: `${baseUrl}/api/people`,
         person(id) { return `${baseUrl}/api/people/${id}` },
         dataLogin: `${baseUrl}/oauth2/login`,
+        attendancehadir: `${baseUrl}/api/attendance/hadir`,
         attendancePeople(id) { return `${baseUrl}/api/attendance/people/${id}` },
         attendanceEvents(id) { return `${baseUrl}/api/attendance/events/${id}` },
 

@@ -101,8 +101,8 @@ export default {
           password: this.password,
         })
         .then((res) => {
-          console.log(res);
           this.statusFaceToken = res.status;
+          console.log(res.data.token);
           localStorage.setItem(config.localStorage.gofaceToken, res.data.token);
           if (this.statusDataToken == 200 && this.statusFaceToken == 200) {
             this.$router.go(-1);

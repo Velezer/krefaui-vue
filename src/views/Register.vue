@@ -18,6 +18,9 @@
           type="text"
           placeholder="Nama Lengkap*"
         />
+        <small class="error-message" v-if="errors.nama">{{
+          errors.nama
+        }}</small>
       </div>
       <div class="form-group">
         <input
@@ -26,6 +29,9 @@
           type="text"
           placeholder="NO. WhatsApp*"
         />
+        <small class="error-message" v-if="errors.whatsapp">{{
+          errors.whatsapp
+        }}</small>
       </div>
       <!-- <div class="form-group">
         <input type="text" placeholder="Instagram*" id="usr" />
@@ -38,6 +44,9 @@
           placeholder="Almat Rumah*"
           id="usr"
         />
+        <small class="error-message" v-if="errors.alamat">{{
+          errors.alamat
+        }}</small>
       </div>
 
       <button type="button3" class="btn2" v-on:click.prevent="register">
@@ -81,6 +90,8 @@ export default {
       statusData: 0,
       statusFace: 0,
       statusConflict: 0,
+      errors: {},
+      webc: Webcam,
     };
   },
   created() {},
@@ -89,7 +100,7 @@ export default {
       let formData = new FormData();
       formData.append("id", this.whatsapp);
 
-      Webcam.snap(function (data_uri) {
+      this.webc.snap(function (data_uri) {
         let base64 = data_uri.replace("data:image/jpeg;base64,", "");
 
         let blob = Webcam.base64DecToArr(base64); //uint8array
@@ -105,8 +116,8 @@ export default {
         setTimeout(() => {
           let camNotAttached = document.querySelector("#video video") === null;
           if (camNotAttached) {
-            Webcam.set(config.webcam);
-            Webcam.attach("#video");
+            this.webc.set(config.webcam);
+            this.webc.attach("#video");
           }
         }, 1000);
       }
@@ -124,40 +135,41 @@ export default {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
         },
-      }).then((res) => {
-        this.statusFace = res.status;
-        if (this.statusData == 201 && this.statusFace == 201) {
-          alert("Data diupdate");
-        }
-      });
+      })
+        .then((res) => {
+          this.statusFace = res.status;
+          if (
+            this.statusData == 200 &&
+            this.statusFace == 200 &&
+            this.statusConflict == 409
+          ) {
+            alert("Data diupdate");
+          }
+        })
+        .catch((err) => {
+          if (err.response.status == 400) {
+            let error = err.response.data.message;
+            if (error == "missing or malformed jwt") {
+              this.$router.push({ name: "Login" });
+            }
+          }
+          if (err.response.status == 401) {
+            this.$router.push({ name: "Login" });
+          }
+        });
     },
-    updateData(formData, token) {
-      axios({
-        method: "put",
-        url: config.urls.person(this.whatsapp),
-        data: formData,
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
-        },
-      }).then((res) => {
-        this.statusData = res.status;
-        if (this.statusData == 201 && this.statusFace == 201) {
-          alert("Data diupdate");
-        }
-      });
-    },
+
     regData() {
       let formData = this.formDataCom;
       formData.append("nama", this.nama);
       formData.append("whatsapp", this.whatsapp);
       formData.append("alamat", this.alamat);
 
-      let token = localStorage.getItem(config.localStorage.gofaceToken);
+      let token = localStorage.getItem(config.localStorage.dataToken);
 
       axios({
         method: "post",
-        url: config.urls.registerFace,
+        url: config.urls.people,
         data: formData,
         headers: {
           "Content-Type": "multipart/form-data",
@@ -174,15 +186,13 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err.response.status);
           if (err.response.status == 409) {
-            this.updateData(formData, token);
+            this.statusConflict = 409;
+            alert("WA terpakai!");
           }
           if (err.response.status == 400) {
-            let error = err.response.data.message;
-            if (error == "missing or malformed jwt") {
-              this.$router.push({ name: "Login" });
-            }
+            let errors = err.response.data.messages;
+            this.errors = errors;
           }
           if (err.response.status == 401) {
             this.$router.push({ name: "Login" });
@@ -214,12 +224,10 @@ export default {
             if (this.statusData == 201 && this.statusFace == 201) {
               alert("Database wajah ditambahkan");
             }
-            // this.$router.push({ name: "Presensi" });
           }
-          // alert("Event baru berhasil dibuat");
         })
         .catch((err) => {
-          console.log(err.response.status);
+          // console.log(err.response.status);
           if (err.response.status == 409) {
             for (let i = 0; i < 5; i++) {
               this.updateFace(formData, token);
@@ -231,8 +239,12 @@ export default {
             if (error == "missing or malformed jwt") {
               this.$router.push({ name: "Login" });
             }
+            if (error !== undefined) {
+              alert(error);
+            }
           }
           if (err.response.status == 401) {
+            // console.log(err.response)
             this.$router.push({ name: "Login" });
           }
         });

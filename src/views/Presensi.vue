@@ -18,7 +18,6 @@
       </button>
     </div>
   </div>
-  s
 </template>
    
 
@@ -43,6 +42,33 @@ export default {
       setInterval(async () => {
         this.findPerson();
       }, 5000);
+    },
+    hadirBos(id_people) {
+      console.log(this.id)
+      let formData = new FormData();
+      formData.append("id_events", this.id);
+      formData.append("id_people", id_people);
+
+      let token = localStorage.getItem(config.localStorage.dataToken);
+
+      axios({
+        method: "post",
+        url: config.urls.attendancehadir,
+        data: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then(() => {
+          alert("Semoga Sukses!")
+        })
+        .catch((err) => {
+          console.log(err.response.data);
+          if (err.response.status == 401) {
+            this.$router.push({ name: "Login" });
+          }
+        });
     },
     findPerson() {
       let formData = new FormData();
@@ -74,13 +100,11 @@ export default {
                 return this.$router.push({ name: "Register" });
               }
               if (confirm(person.name)) {
-                // call_post_data_mysql
+                this.hadirBos(person.id)
                 break;
               }
             }
           }
-          // alert("Event baru berhasil dibuat");
-          // this.$router.push({ name: "Events" });
         })
         .catch((err) => {
           console.log(err.response.data);
