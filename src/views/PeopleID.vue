@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <table>
-      <img :src="personData.foto" :alt="personData.nama" width="300" />
+      <img :src="'http://localhost:8080/'+personData.foto" :alt="personData.nama" width="300" />
       <h3>{{ personData.nama }}</h3>
     </table>
     <h3>Pernah Menghadiri Event Berikut:</h3>
