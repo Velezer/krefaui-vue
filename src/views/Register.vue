@@ -80,11 +80,12 @@ export default {
       alamat: "",
       statusData: 0,
       statusFace: 0,
+      statusConflict: 0,
     };
   },
   created() {},
   computed: {
-    formData() {
+    formDataCom() {
       let formData = new FormData();
       formData.append("id", this.whatsapp);
 
@@ -123,10 +124,31 @@ export default {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
         },
-      }).then();
+      }).then((res) => {
+        this.statusFace = res.status;
+        if (this.statusData == 201 && this.statusFace == 201) {
+          alert("Data diupdate");
+        }
+      });
+    },
+    updateData(formData, token) {
+      axios({
+        method: "put",
+        url: config.urls.person(this.whatsapp),
+        data: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      }).then((res) => {
+        this.statusData = res.status;
+        if (this.statusData == 201 && this.statusFace == 201) {
+          alert("Data diupdate");
+        }
+      });
     },
     regData() {
-      let formData = this.formData();
+      let formData = this.formDataCom;
       formData.append("nama", this.nama);
       formData.append("whatsapp", this.whatsapp);
       formData.append("alamat", this.alamat);
@@ -145,25 +167,16 @@ export default {
         .then((res) => {
           console.log(res);
           if (res.status == 201) {
-            // alert(res.data.detail)
-            // let detected = res.data.data;
-            for (let i = 0; i < 5; i++) {
-              this.updateFace(formData, token);
-            }
-            if (this.statusData && this.statusFace) {
+            this.statusData = 201;
+            if (this.statusData == 201 && this.statusFace == 201) {
               alert("Database wajah ditambahkan");
             }
-            // this.$router.push({ name: "Presensi" });
           }
-          // alert("Event baru berhasil dibuat");
         })
         .catch((err) => {
           console.log(err.response.status);
           if (err.response.status == 409) {
-            for (let i = 0; i < 5; i++) {
-              this.updateFace(formData, token);
-            }
-            alert("Database wajah diupdate");
+            this.updateData(formData, token);
           }
           if (err.response.status == 400) {
             let error = err.response.data.message;
@@ -177,7 +190,7 @@ export default {
         });
     },
     regFace() {
-      let formData = this.formData();
+      let formData = this.formDataCom;
       formData.append("name", this.nama);
 
       let token = localStorage.getItem(config.localStorage.gofaceToken);
@@ -194,12 +207,11 @@ export default {
         .then((res) => {
           console.log(res);
           if (res.status == 201) {
-            // alert(res.data.detail)
-            // let detected = res.data.data;
+            this.statusFace = 201;
             for (let i = 0; i < 5; i++) {
               this.updateFace(formData, token);
             }
-            if (this.statusData && this.statusFace) {
+            if (this.statusData == 201 && this.statusFace == 201) {
               alert("Database wajah ditambahkan");
             }
             // this.$router.push({ name: "Presensi" });
