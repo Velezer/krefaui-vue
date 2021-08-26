@@ -1,11 +1,13 @@
 <template>
   <div class="container text-center">
+    
     <img src="@/assets/elements/Blue_Lock_Register.png" />
     <!-- <h3>Sudah punya akun ? <a href="#">Masuk</a></h3> -->
   </div>
   <div class="col-sm-5" style="padding-top: 0px">
     <div id="video">
-      <img src="@/assets/elements/Blue_Icon_Profile.png" width="420" />
+      <img v-if="foto" :src="'http://localhost:8080/'+foto" :alt="nama" />
+      <img v-else src="@/assets/elements/Blue_Icon_Profile.png" width="420" />
     </div>
   </div>
 
@@ -39,9 +41,9 @@
       <div class="form-group">
         <input
           v-on:input="attachCam"
-          v-model.trim="alamat"
+          v-model="alamat"
           type="text"
-          placeholder="Almat Rumah*"
+          placeholder="Alamat Rumah*"
           id="usr"
         />
         <small class="error-message" v-if="errors.alamat">{{
@@ -86,6 +88,7 @@ export default {
   data() {
     return {
       nama: "",
+      foto:"",
       whatsapp: "",
       alamat: "",
       statusData: 0,
@@ -95,7 +98,10 @@ export default {
       webc: Webcam,
     };
   },
-  created() {},
+  created() {
+    this.fillFields()
+    this.attachCam()
+  },
   computed: {
     formDataCom() {
       let formData = new FormData();
@@ -113,22 +119,20 @@ export default {
   },
   methods: {
     attachCam() {
-      if (this.nama && this.whatsapp && this.alamat) {
+      this.whatsapp = this.id;
         setTimeout(() => {
           let camNotAttached = document.querySelector("#video video") === null;
-          if (camNotAttached) {
+          if (camNotAttached&&document.querySelector("#video")) {
             this.webc.set(config.webcam);
             this.webc.attach("#video");
           }
-        }, 1000);
-      }
+        }, 10000);
     },
     fillFields() {
       let token = localStorage.getItem(config.localStorage.dataToken);
-
       axios({
         method: "get",
-        url: config.urls.person(this.whatsapp),
+        url: config.urls.person(this.id),
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -136,7 +140,8 @@ export default {
         .then((res) => {
           let data = res.data.data;
           this.nama = data.nama;
-          this.whatsapp = data.whatsapp;
+          this.foto = data.foto;
+          this.whatsapp = this.id;
           this.alamat = data.alamat;
         })
         .catch((err) => {
