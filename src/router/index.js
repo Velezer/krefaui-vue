@@ -6,6 +6,7 @@ import EventsID from "@/views/EventsID.vue";
 import Presensi from "@/views/Presensi.vue";
 import People from "@/views/People.vue";
 import Register from "@/views/Register.vue";
+import RegisterUpdate from "@/views/RegisterUpdate.vue";
 import PeopleID from "@/views/PeopleID.vue";
 import LoginAdmin from "@/views/LoginAdmin.vue";
 import NotFound from "@/views/NotFound.vue";
@@ -54,6 +55,12 @@ const routes = [
         path: "/people/:id",
         name: "People_id",
         component: PeopleID,
+        props: true
+    },
+    {
+        path: "/people/:id/update",
+        name: "People_id_update",
+        component: RegisterUpdate,
         props: true
     },
     {

@@ -28,6 +28,7 @@
 import Webcam from "webcamjs";
 const axios = require("axios").default;
 const config = require("../config/config.js").default;
+const callbacks = require("../helper/helper").default;
 
 export default {
   props: ["id"],
@@ -44,7 +45,7 @@ export default {
       }, 5000);
     },
     hadirBos(id_people) {
-      console.log(this.id)
+      console.log(this.id);
       let formData = new FormData();
       formData.append("id_events", this.id);
       formData.append("id_people", id_people);
@@ -61,13 +62,10 @@ export default {
         },
       })
         .then(() => {
-          alert("Semoga Sukses!")
+          alert("Semoga Sukses!");
         })
         .catch((err) => {
-          console.log(err.response.data);
-          if (err.response.status == 401) {
-            this.$router.push({ name: "Login" });
-          }
+          callbacks.unauth(err.response.status);
         });
     },
     findPerson() {
@@ -100,24 +98,14 @@ export default {
                 return this.$router.push({ name: "Register" });
               }
               if (confirm(person.name)) {
-                this.hadirBos(person.id)
+                this.hadirBos(person.id);
                 break;
               }
             }
           }
         })
         .catch((err) => {
-          console.log(err.response.data);
-
-          if (err.response.status == 400) {
-            let error = err.response.data.message;
-            if (error == "missing or malformed jwt") {
-              this.$router.push({ name: "Login" });
-            }
-          }
-          if (err.response.status == 401) {
-            this.$router.push({ name: "Login" });
-          }
+          callbacks.unauth(err.response.status, err.response.data.message);
         });
     },
   },

@@ -123,6 +123,26 @@ export default {
         }, 1000);
       }
     },
+    fillFields() {
+      let token = localStorage.getItem(config.localStorage.dataToken);
+
+      axios({
+        method: "get",
+        url: config.urls.person(this.whatsapp),
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => {
+          let data = res.data.data;
+          this.nama = data.nama;
+          this.whatsapp = data.whatsapp;
+          this.alamat = data.alamat;
+        })
+        .catch((err) => {
+          callbacks.unauth(err.response.status, err.response.data.message);
+        });
+    },
     register() {
       this.regData();
       this.regFace();
@@ -137,8 +157,7 @@ export default {
           Authorization: `Bearer ${token}`,
         },
       })
-        .then(() => {
-        })
+        .then(() => {})
         .catch((err) => {
           callbacks.unauth(err.response.status, err.response.data.message);
         });
@@ -153,8 +172,8 @@ export default {
       let token = localStorage.getItem(config.localStorage.dataToken);
 
       axios({
-        method: "post",
-        url: config.urls.people,
+        method: "put",
+        url: config.urls.person(this.whatsapp),
         data: formData,
         headers: {
           "Content-Type": "multipart/form-data",
@@ -163,9 +182,9 @@ export default {
       })
         .then((res) => {
           console.log(res);
-          if (res.status == 201) {
-            this.statusData = 201;
-            if (this.statusData == 201 && this.statusFace == 201) {
+          if (res.status == 200) {
+            this.statusData = 200;
+            if (this.statusData == 200 && this.statusFace == 200) {
               alert("Database wajah ditambahkan");
             }
           }
@@ -189,7 +208,7 @@ export default {
       let token = localStorage.getItem(config.localStorage.gofaceToken);
 
       axios({
-        method: "post",
+        method: "put",
         url: config.urls.registerFace,
         data: formData,
         headers: {
@@ -199,12 +218,12 @@ export default {
       })
         .then((res) => {
           console.log(res);
-          if (res.status == 201) {
-            this.statusFace = 201;
-            for (let i = 0; i < 5; i++) {
+          if (res.status == 200) {
+            this.statusFace = 200;
+            for (let i = 0; i < 7; i++) {
               this.updateFace(formData, token);
             }
-            if (this.statusData == 201 && this.statusFace == 201) {
+            if (this.statusData == 200 && this.statusFace == 200) {
               alert("Database wajah ditambahkan");
             }
           }

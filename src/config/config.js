@@ -14,6 +14,7 @@ let config = {
 
         findFace: `${faceUrl}/api/face/find`,
         registerFace: `${faceUrl}/api/face/register`,
+        deleteFace(id) { return `${faceUrl}/api/face/${id}` },
         jwtLogin: `${faceUrl}/jwt/login`,
         // jwtRegister: `${faceUrl}/jwt/register`,
     },
