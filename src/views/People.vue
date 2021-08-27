@@ -68,13 +68,13 @@ export default {
     };
   },
   created() {
-    axios.defaults.headers.common[
-      "Authorization"
-    ] = `Bearer ${localStorage.getItem(config.localStorage.dataToken)}`;
     this.getAllPeople();
   },
   methods: {
     getAllPeople() {
+      axios.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${localStorage.getItem(config.localStorage.dataToken)}`;
       axios
         .get(config.urls.people)
         .then((res) => {
@@ -91,11 +91,17 @@ export default {
       if (!confirm("Yakin?")) {
         return;
       }
+      axios.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${localStorage.getItem(config.localStorage.dataToken)}`;
       axios
         .delete(config.urls.person(item.id))
         .then((res) => {
           if (res.status == 200) {
             this.people = this.people.filter((people) => people !== item);
+            axios.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${localStorage.getItem(config.localStorage.gofaceToken)}`;
             axios.delete(config.urls.deleteFace(item.id)).then();
           }
         })

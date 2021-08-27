@@ -9,6 +9,7 @@ import Register from "@/views/Register.vue";
 import RegisterUpdate from "@/views/RegisterUpdate.vue";
 import PeopleID from "@/views/PeopleID.vue";
 import LoginAdmin from "@/views/LoginAdmin.vue";
+import Sync from "@/views/Sync.vue";
 import NotFound from "@/views/NotFound.vue";
 
 
@@ -67,6 +68,11 @@ const routes = [
         path: "/admin/login",
         name: "Login",
         component: LoginAdmin,
+    },
+    {
+        path: "/admin/sync",
+        name: "Sync",
+        component: Sync,
     },
     {
         path: "/:catchAll(.*)",

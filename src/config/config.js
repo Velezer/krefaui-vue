@@ -14,6 +14,7 @@ let config = {
         attendanceEvents(id) { return `${baseUrl}/api/attendance/events/${id}` },
         deleteAttendance(idEvents,idPeople) { return `${baseUrl}/api/attendance/${idEvents}/${idPeople}` },
 
+        allFace: `${faceUrl}/api/face`,
         findFace: `${faceUrl}/api/face/find`,
         registerFace: `${faceUrl}/api/face/register`,
         deleteFace(id) { return `${faceUrl}/api/face/${id}` },

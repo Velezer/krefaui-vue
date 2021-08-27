@@ -10,7 +10,10 @@
       </router-link>
     </div>
     <div class="col-sm-5">
+      <router-link :to="{ name: 'Sync' }">
       <img src="@/assets/elements/landing_page_illustration.png" width="330" />
+          </router-link>
+
     </div>
   </div>
 </template>
