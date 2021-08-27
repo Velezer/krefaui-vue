@@ -16,6 +16,7 @@
         <th style="padding-left: 10px; padding-right: 10px">No</th>
         <th>Nama</th>
         <th>Hadir Pada</th>
+        <th>Action</th>
       </tr>
 
       <tr v-for="(person, i) in attendance" :key="person.id">
@@ -26,6 +27,11 @@
           </router-link>
         </td>
         <td>{{ person.hadir_pada }}</td>
+        <td>
+          <button style="color: red" v-on:click="deletePresence(person)">
+            X
+          </button>
+        </td>
       </tr>
     </table>
   </div>
@@ -39,6 +45,7 @@
 <script>
 const axios = require("axios").default;
 const config = require("../config/config.js").default;
+const callbacks = require("../helper/helper").default;
 
 export default {
   props: ["id"],
@@ -56,6 +63,26 @@ export default {
     this.getAttendanceById(this.id);
   },
   methods: {
+    deletePresence(item){
+      if (!confirm("Yakin?")) {
+        return;
+      }
+      axios.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${localStorage.getItem(config.localStorage.dataToken)}`;
+      axios
+        .delete(config.urls.deleteAttendance(item.id_events,item.id_people))
+        .then((res) => {
+          if (res.status == 200) {
+            this.attendance = this.attendance.filter((att) => att !== item);
+            axios.delete(config.urls.deleteFace(item.id)).then();
+          }
+        })
+        .catch((err) => {
+          console.log(err.response);
+          callbacks.unauth(err.response.status, err.response.data.message);
+        });
+    },
     getAttendanceById(id) {
       axios
         .get(`${this.baseAPIURL}/api/attendance/events/${id}`)

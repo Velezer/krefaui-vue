@@ -45,7 +45,6 @@ export default {
       }, 5000);
     },
     hadirBos(id_people) {
-      console.log(this.id);
       let formData = new FormData();
       formData.append("id_events", this.id);
       formData.append("id_people", id_people);
@@ -63,6 +62,7 @@ export default {
       })
         .then(() => {
           alert("Semoga Sukses!");
+          this.$router.go(-1);
         })
         .catch((err) => {
           callbacks.unauth(err.response.status);

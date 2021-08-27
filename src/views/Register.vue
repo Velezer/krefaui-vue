@@ -167,6 +167,7 @@ export default {
             this.statusData = 201;
             if (this.statusData == 201 && this.statusFace == 201) {
               alert("Database wajah ditambahkan");
+              this.$router.go(-1);
             }
           }
         })
@@ -201,7 +202,7 @@ export default {
           console.log(res);
           if (res.status == 201) {
             this.statusFace = 201;
-            for (let i = 0; i < 5; i++) {
+            for (let i = 0; i < 10; i++) {
               this.updateFace(formData, token);
             }
             if (this.statusData == 201 && this.statusFace == 201) {

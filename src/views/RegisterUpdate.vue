@@ -173,11 +173,12 @@ export default {
       formData.append("nama", this.nama);
       formData.append("whatsapp", this.whatsapp);
       formData.append("alamat", this.alamat);
+      formData.append("_method", "PUT");
 
       let token = localStorage.getItem(config.localStorage.dataToken);
 
       axios({
-        method: "put",
+        method: "post",
         url: config.urls.person(this.whatsapp),
         data: formData,
         headers: {
@@ -190,7 +191,8 @@ export default {
           if (res.status == 200) {
             this.statusData = 200;
             if (this.statusData == 200 && this.statusFace == 200) {
-              alert("Database wajah ditambahkan");
+              alert("Database wajah diupdate");
+              this.$router.go(-1);
             }
           }
         })
@@ -200,6 +202,7 @@ export default {
             alert("WA terpakai!");
           }
           if (err.response.status == 400) {
+            console.log(err.response)
             let errors = err.response.data.messages;
             this.errors = errors;
           }
@@ -222,25 +225,20 @@ export default {
         },
       })
         .then((res) => {
-          console.log(res);
+          //console.log(res);
           if (res.status == 200) {
             this.statusFace = 200;
-            for (let i = 0; i < 7; i++) {
+            for (let i = 0; i < 10; i++) {
               this.updateFace(formData, token);
             }
             if (this.statusData == 200 && this.statusFace == 200) {
-              alert("Database wajah ditambahkan");
+              alert("Database wajah diupdate");
+              this.$router.go(-1);
             }
           }
         })
         .catch((err) => {
           // console.log(err.response.status);
-          if (err.response.status == 409) {
-            for (let i = 0; i < 5; i++) {
-              this.updateFace(formData, token);
-            }
-          }
-
           let error = err.response.data.message;
           if (error !== undefined) {
             alert(error);
