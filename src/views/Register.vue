@@ -123,9 +123,18 @@ export default {
         }, 1000);
       }
     },
-    register() {
-      this.regData();
-      this.regFace();
+    async register() {
+      await this.regData().then();
+      await this.regFace().then();
+      if (this.statusData == 201 && this.statusFace == 201) {
+              alert("Register dengan wajah sukses!");
+              this.$router.go(-1);
+            }
+      if (this.statusData == 201 && this.statusFace != 201) {
+              alert("Register tanpa wajah sukses!");
+              this.$router.go(-1);
+            }
+      
     },
     updateFace(formData, token) {
       axios({
@@ -152,7 +161,7 @@ export default {
 
       let token = localStorage.getItem(config.localStorage.dataToken);
 
-      axios({
+      return axios({
         method: "post",
         url: config.urls.people,
         data: formData,
@@ -162,13 +171,8 @@ export default {
         },
       })
         .then((res) => {
-          console.log(res);
           if (res.status == 201) {
             this.statusData = 201;
-            if (this.statusData == 201 && this.statusFace == 201) {
-              alert("Database wajah ditambahkan");
-              this.$router.go(-1);
-            }
           }
         })
         .catch((err) => {
@@ -189,7 +193,7 @@ export default {
 
       let token = localStorage.getItem(config.localStorage.gofaceToken);
 
-      axios({
+      return axios({
         method: "post",
         url: config.urls.registerFace,
         data: formData,
@@ -199,19 +203,15 @@ export default {
         },
       })
         .then((res) => {
-          console.log(res);
           if (res.status == 201) {
             this.statusFace = 201;
             for (let i = 0; i < 10; i++) {
               this.updateFace(formData, token);
             }
-            if (this.statusData == 201 && this.statusFace == 201) {
-              alert("Database wajah ditambahkan");
-            }
+            
           }
         })
         .catch((err) => {
-          // console.log(err.response.status);
           if (err.response.status == 409) {
             for (let i = 0; i < 5; i++) {
               this.updateFace(formData, token);

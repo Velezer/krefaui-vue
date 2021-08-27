@@ -65,6 +65,12 @@ export default {
           this.$router.go(-1);
         })
         .catch((err) => {
+          if (err.response.status == 400) {
+            let errors = err.response.data.messages;
+            if(errors.error==`Anda sudah hadir`){
+              alert(errors.error)
+            }
+          }
           callbacks.unauth(err.response.status);
         });
     },

@@ -7,7 +7,9 @@
       </router-link>
     </div>
     <div class="col-sm-5">
-      <!-- <h3>Hari : Senin,1 Juni 2021</h3> -->
+      <router-link :to="{ name: 'PresensiTanpa' }">
+        <button type="button2" class="btn btn-primary">Presensi Tanpa Wajah</button>
+      </router-link>
       <h3></h3>
     </div>
 

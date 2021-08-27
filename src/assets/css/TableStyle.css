@@ -8,8 +8,9 @@
     
 }
 
-
-
+input{
+  padding: 20px;
+}
 tr th{
     
     background-color: #26c7e7;

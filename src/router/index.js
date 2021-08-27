@@ -4,6 +4,7 @@ import NewEvent from "@/views/NewEvent.vue";
 import Events from "@/views/Events.vue";
 import EventsID from "@/views/EventsID.vue";
 import Presensi from "@/views/Presensi.vue";
+import PresensiTanpa from "@/views/PresensiTanpa.vue";
 import People from "@/views/People.vue";
 import Register from "@/views/Register.vue";
 import RegisterUpdate from "@/views/RegisterUpdate.vue";
@@ -40,6 +41,12 @@ const routes = [
         path: "/events/:id/presensi",
         name: "Presensi",
         component: Presensi,
+        props: true
+    },
+    {
+        path: "/events/:id/presensi-tanpa",
+        name: "PresensiTanpa",
+        component: PresensiTanpa,
         props: true
     },
     {

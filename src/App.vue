@@ -11,7 +11,10 @@
       <div class="Text">
         <a href="#">Kreasi Face Attendance</a>
         <ul class="nav navbar-nav navbar-right">
-          <button type="button1" class="btn btn-link">Tentang Kami</button>
+          <router-link :to="{ name: 'Events' }">
+          <button type="button1" class="btn btn-link">Daftar Events</button>
+          </router-link>
+
           <router-link :to="{ name: 'Register' }">
           <button type="button2" class="btn btn-primary">Register Wajah</button>
           </router-link>
@@ -38,12 +41,12 @@
 <style>
 @import "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css";
 @import "./assets/css/Style.css";
-/* #app {
+#app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
-} */
+  /* margin-top: 60px; */
+}
 </style>

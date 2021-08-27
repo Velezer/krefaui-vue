@@ -3,8 +3,8 @@
     <div class="col-sm-5">
       <h2>Halo</h2>
       <h2>Selamat Datang</h2>
-      <h2>di KreFa!</h2>
-      <p>Lorem Ipsum dolor sit amet,<br />Consectular elit</p>
+      <h2>di KreFA!</h2>
+      <p>Semoga berkah</p>
       <router-link :to="{ name: 'Events' }">
         <img src="@/assets/elements/button.png" width="150" alt="" />
       </router-link>
