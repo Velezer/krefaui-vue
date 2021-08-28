@@ -65,6 +65,7 @@ export default {
                         }).catch((err) => {
                             return err.response.status
                         });
+            if (status == 401) {this.$router.push({ name: "Login" })}
             if(status==200){status=`OK`}
             if(status==404){status=`Not Found`}
             f.idStatus=status
