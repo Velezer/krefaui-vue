@@ -27,7 +27,7 @@
         <td>{{ i + 1 }}</td>
         <td>
           <img
-            :src="'http://localhost:8080/' + person.foto"
+            :src="`http://${location.hostname}:8080/` + person.foto"
             :alt="person.nama"
             width="100"
           />
