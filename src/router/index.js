@@ -12,7 +12,7 @@ import PeopleID from "@/views/PeopleID.vue";
 import LoginAdmin from "@/views/LoginAdmin.vue";
 import Sync from "@/views/Sync.vue";
 import NotFound from "@/views/NotFound.vue";
-import PopUp from "@/views/PopUp.vue";
+
 
 
 const routes = [
@@ -82,12 +82,7 @@ const routes = [
         name: "Sync",
         component: Sync,
     },
-    {
-        path: "/events/popup",
-        name: "PopUp",
-        component: PopUp,
-        props: true
-    },
+
     {
         path: "/:catchAll(.*)",
         component: NotFound,
