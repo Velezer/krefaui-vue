@@ -16,6 +16,7 @@
       <button type="button3" class="btn2" v-on:click="findPerson">
         Ambil gambar
       </button>
+      
     </div>
   </div>
 </template>
