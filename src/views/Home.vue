@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="col-sm-5">
+    <div class="col-sm-5" style="text-align: left;">
       <h2>Halo</h2>
       <h2>Selamat Datang</h2>
       <h2>di KreFA!</h2>
