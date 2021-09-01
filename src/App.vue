@@ -39,7 +39,7 @@
 </script>
 
 <style>
-@import "./assets/css/bootstrap.min.css";
+@import "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css";
 @import "./assets/css/Style.css";
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
