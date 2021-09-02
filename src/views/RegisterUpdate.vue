@@ -154,18 +154,13 @@ export default {
       await this.regData().then();
       if (this.statusData == 200 && this.statusRegFace == 201) {
         alert("Data diupdate dan wajah ditambahkan");
-        this.$router.go(-1);
-      }
-      if (this.statusData == 200 && this.statusFace == 200) {
+      } else if (this.statusData == 200 && this.statusFace == 200) {
         alert("Data dan wajah diupdate");
-        this.$router.go(-1);
-      }
-
-      if (this.statusData == 200 && this.statusFace != 200) {
+      } else if (this.statusData == 200 && this.statusFace != 200) {
         alert("Hanya data yg diupdate!");
-        this.$router.go(-1);
+      } else {
+        alert("Gagal");
       }
-      alert("Gagal");
       this.$router.go(-1);
     },
     updateFace(formData, token) {
@@ -193,7 +188,7 @@ export default {
 
       let token = localStorage.getItem(config.localStorage.dataToken);
 
-      axios({
+      return axios({
         method: "post",
         url: config.urls.person(this.whatsapp),
         data: formData,
@@ -203,7 +198,7 @@ export default {
         },
       })
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           if (res.status == 200) {
             this.statusData = 200;
           }
@@ -242,7 +237,7 @@ export default {
           }
         });
       }, 0);
-      axios({
+      return axios({
         method: "put",
         url: config.urls.registerFace,
         data: formData,
