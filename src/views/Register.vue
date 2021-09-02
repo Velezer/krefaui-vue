@@ -50,8 +50,9 @@
       </div>
 
       <button type="button3" class="btn2" v-on:click.prevent="register">
-        Ambil gambar
-      </button>
+        Register
+        </button>
+
     </form>
 
     <!-- <input type="checkbox" class="agreement" value="agreement" />
@@ -124,17 +125,16 @@ export default {
       }
     },
     async register() {
-      await this.regData().then();
       await this.regFace().then();
+      await this.regData().then();
       if (this.statusData == 201 && this.statusFace == 201) {
-              alert("Register dengan wajah sukses!");
-              this.$router.go(-1);
-            }
+        alert("Register dengan wajah sukses!");
+        this.$router.go(-1);
+      }
       if (this.statusData == 201 && this.statusFace != 201) {
-              alert("Register tanpa wajah sukses!");
-              this.$router.go(-1);
-            }
-      
+        alert("Register tanpa wajah sukses!");
+        this.$router.go(-1);
+      }
     },
     updateFace(formData, token) {
       axios({
@@ -146,8 +146,7 @@ export default {
           Authorization: `Bearer ${token}`,
         },
       })
-        .then(() => {
-        })
+        .then(() => {})
         .catch((err) => {
           callbacks.unauth(err.response.status, err.response.data.message);
         });
@@ -208,7 +207,6 @@ export default {
             for (let i = 0; i < 10; i++) {
               this.updateFace(formData, token);
             }
-            
           }
         })
         .catch((err) => {

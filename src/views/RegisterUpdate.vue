@@ -1,12 +1,11 @@
 <template>
   <div class="container text-center">
-    
     <img src="@/assets/elements/Blue_Lock_Register.png" />
     <!-- <h3>Sudah punya akun ? <a href="#">Masuk</a></h3> -->
   </div>
   <div class="col-sm-5" style="padding-top: 0px">
     <div id="video">
-      <img v-if="foto" :src="'http://localhost:8080/'+foto" :alt="nama" />
+      <img v-if="foto" :src="`http://` + host + `:8080/` + foto" :alt="nama" />
       <img v-else src="@/assets/elements/Blue_Icon_Profile.png" width="420" />
     </div>
   </div>
@@ -52,7 +51,7 @@
       </div>
 
       <button type="button3" class="btn2" v-on:click.prevent="register">
-        Ambil gambar
+        Update
       </button>
     </form>
 
@@ -88,7 +87,7 @@ export default {
   data() {
     return {
       nama: "",
-      foto:"",
+      foto: "",
       whatsapp: "",
       alamat: "",
       statusData: 0,
@@ -96,11 +95,13 @@ export default {
       statusConflict: 0,
       errors: {},
       webc: Webcam,
+      host: location.hostname,
+      statusRegFace: 0,
     };
   },
   created() {
-    this.fillFields()
-    this.attachCam()
+    this.fillFields();
+    this.attachCam();
   },
   computed: {
     formDataCom() {
@@ -120,13 +121,13 @@ export default {
   methods: {
     attachCam() {
       this.whatsapp = this.id;
-        setTimeout(() => {
-          let camNotAttached = document.querySelector("#video video") === null;
-          if (camNotAttached&&document.querySelector("#video")) {
-            this.webc.set(config.webcam);
-            this.webc.attach("#video");
-          }
-        }, 10000);
+      setTimeout(() => {
+        let camNotAttached = document.querySelector("#video video") === null;
+        if (camNotAttached && document.querySelector("#video")) {
+          this.webc.set(config.webcam);
+          this.webc.attach("#video");
+        }
+      }, 5000);
     },
     fillFields() {
       let token = localStorage.getItem(config.localStorage.dataToken);
@@ -148,9 +149,24 @@ export default {
           callbacks.unauth(err.response.status, err.response.data.message);
         });
     },
-    register() {
-      this.regData();
-      this.regFace();
+    async register() {
+      await this.regFace().then();
+      await this.regData().then();
+      if (this.statusData == 200 && this.statusRegFace == 201) {
+        alert("Data diupdate dan wajah ditambahkan");
+        this.$router.go(-1);
+      }
+      if (this.statusData == 200 && this.statusFace == 200) {
+        alert("Data dan wajah diupdate");
+        this.$router.go(-1);
+      }
+
+      if (this.statusData == 200 && this.statusFace != 200) {
+        alert("Hanya data yg diupdate!");
+        this.$router.go(-1);
+      }
+      alert("Gagal");
+      this.$router.go(-1);
     },
     updateFace(formData, token) {
       axios({
@@ -190,10 +206,6 @@ export default {
           console.log(res);
           if (res.status == 200) {
             this.statusData = 200;
-            if (this.statusData == 200 && this.statusFace == 200) {
-              alert("Database wajah diupdate");
-              this.$router.go(-1);
-            }
           }
         })
         .catch((err) => {
@@ -202,7 +214,7 @@ export default {
             alert("WA terpakai!");
           }
           if (err.response.status == 400) {
-            console.log(err.response)
+            console.log(err.response);
             let errors = err.response.data.messages;
             this.errors = errors;
           }
@@ -214,7 +226,22 @@ export default {
       formData.append("name", this.nama);
 
       let token = localStorage.getItem(config.localStorage.gofaceToken);
-
+      setTimeout(async () => {
+        await axios({
+          method: "post",
+          url: config.urls.registerFace,
+          data: formData,
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
+        }).then((res) => {
+          //console.log(res);
+          if (res.status == 201) {
+            this.statusRegFace = 201;
+          }
+        });
+      }, 0);
       axios({
         method: "put",
         url: config.urls.registerFace,
@@ -228,12 +255,8 @@ export default {
           //console.log(res);
           if (res.status == 200) {
             this.statusFace = 200;
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < 5; i++) {
               this.updateFace(formData, token);
-            }
-            if (this.statusData == 200 && this.statusFace == 200) {
-              alert("Database wajah diupdate");
-              this.$router.go(-1);
             }
           }
         })

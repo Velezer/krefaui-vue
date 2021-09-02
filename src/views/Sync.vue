@@ -19,12 +19,10 @@
             {{ face.name }}
           </router-link>
         </td>
-        <td >{{face.idStatus}}</td>
+        <td>{{ face.idStatus }}</td>
         <td>{{ face.descriptors }}</td>
         <td>
-          <button style="color: red" v-on:click="deleteFace(face)">
-            X
-          </button>
+          <button style="color: red" v-on:click="deleteFace(face)">X</button>
         </td>
       </tr>
     </table>
@@ -41,62 +39,62 @@ export default {
   data() {
     return {
       faces: [],
-      faceStatus:{}
+      faceStatus: {},
     };
   },
   created() {
-    
     this.getAllFaces();
   },
-  computed:{
-      
-  },
+  computed: {},
   methods: {
-      is200(){
-        axios.defaults.headers.common[
-            "Authorization"
-            ] = `Bearer ${localStorage.getItem(config.localStorage.dataToken)}`;
-        
-        this.faces.forEach(async f => {
-           let status=await axios
-                        .get(config.urls.person(f.id))
-                        .then((res) => {
-                            return res.status;
-                        }).catch((err) => {
-                            return err.response.status
-                        });
-            if (status == 401) {this.$router.push({ name: "Login" })}
-            if(status==200){status=`OK`}
-            if(status==404){status=`Not Found`}
-            f.idStatus=status
-        });
-       
+    is200() {
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${localStorage.getItem(config.localStorage.dataToken)}`;
 
-      },
+      this.faces.forEach(async (f) => {
+        let status = await axios
+          .get(config.urls.person(f.id))
+          .then((res) => {
+            return res.status;
+          })
+          .catch((err) => {
+            return err.response.status;
+          });
+        if (status == 401) {
+          this.$router.push({ name: "Login" });
+        }
+        if (status == 200) {
+          status = `OK`;
+        }
+        if (status == 404) {
+          status = `Not Found`;
+        }
+        f.idStatus = status;
+      });
+    },
     getAllFaces() {
-        axios.defaults.headers.common[
-      "Authorization"
-    ] = `Bearer ${localStorage.getItem(config.localStorage.gofaceToken)}`;
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${localStorage.getItem(config.localStorage.gofaceToken)}`;
       axios
         .get(config.urls.allFace)
         .then((res) => {
           let data = res.data;
           this.faces = data.data;
-            this.is200()
+          this.is200();
         })
         .catch((err) => {
-          if (err.response.status == 401) {
-            this.$router.push({ name: "Login" });
-          }
+          callbacks.unauth(err.response.status, err.response.data.message);
         });
     },
     deleteFace(item) {
       if (!confirm("Yakin?")) {
         return;
       }
-       axios.defaults.headers.common[
-      "Authorization"
-    ] = `Bearer ${localStorage.getItem(config.localStorage.gofaceToken)}`;
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${localStorage.getItem(config.localStorage.gofaceToken)}`;
       axios
         .delete(config.urls.deleteFace(item.id))
         .then((res) => {
@@ -104,10 +102,10 @@ export default {
             this.faces = this.faces.filter((people) => people !== item);
           }
         })
-        .catch((err) => {
-          console.log(err.response);
-          callbacks.unauth(err.response.status, err.response.data.message);
-        });
+        .catch(function(err) {
+            console.log(err.response);
+            callbacks.unauth(err.response.status, err.response.data.message);
+          });
     },
   },
 };
