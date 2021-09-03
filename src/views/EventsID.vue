@@ -77,7 +77,7 @@ export default {
         .then((res) => {
           if (res.status == 200) {
             this.attendance = this.attendance.filter((att) => att !== item);
-            axios.delete(config.urls.deleteFace(item.id)).then();
+            axios.delete(config.urls.face(item.id)).then();
           }
         })
         .catch((err) => {

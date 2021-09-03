@@ -28,10 +28,14 @@
         <td>{{ i + 1 }}</td>
         <td>
           <img
-            :src="`http://`+host+`:8080/` + person.foto"
+            :src="`http://` + host + `:8080/` + person.foto"
             :alt="person.nama"
             width="100"
           />
+          <br>
+          <small>
+            {{ person.descriptors }}
+          </small>
         </td>
         <td>
           <router-link :to="{ name: 'People_id', params: { id: person.id } }">
@@ -67,22 +71,48 @@ export default {
   data() {
     return {
       people: [],
-      host: location.hostname
+      descriptors: {},
+      host: location.hostname,
     };
   },
   created() {
     this.getAllPeople();
   },
   methods: {
+    getDescriptor() {
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${localStorage.getItem(config.localStorage.gofaceToken)}`;
+
+      this.people.forEach(async (person) => {
+        let status = await axios
+          .get(config.urls.face(person.id))
+          .then((res) => {
+            let data = res.data;
+            data = data.data;
+            if (data.length > 0) {
+              let d = data[0];
+              return d.descriptors;
+            }
+            return 0;
+          })
+          .catch(() => {
+            return 0;
+          });
+        
+        person.descriptors = status;
+      });
+    },
     getAllPeople() {
       axios.defaults.headers.common[
-      "Authorization"
-    ] = `Bearer ${localStorage.getItem(config.localStorage.dataToken)}`;
+        "Authorization"
+      ] = `Bearer ${localStorage.getItem(config.localStorage.dataToken)}`;
       axios
         .get(config.urls.people)
         .then((res) => {
           let data = res.data;
           this.people = data.data.reverse();
+          this.getDescriptor()
         })
         .catch((err) => {
           if (err.response.status == 401) {
@@ -95,17 +125,19 @@ export default {
         return;
       }
       axios.defaults.headers.common[
-      "Authorization"
-    ] = `Bearer ${localStorage.getItem(config.localStorage.dataToken)}`;
+        "Authorization"
+      ] = `Bearer ${localStorage.getItem(config.localStorage.dataToken)}`;
       axios
         .delete(config.urls.person(item.id))
         .then((res) => {
           if (res.status == 200) {
             this.people = this.people.filter((people) => people !== item);
             axios.defaults.headers.common[
-      "Authorization"
-    ] = `Bearer ${localStorage.getItem(config.localStorage.gofaceToken)}`;
-            axios.delete(config.urls.deleteFace(item.id)).then();
+              "Authorization"
+            ] = `Bearer ${localStorage.getItem(
+              config.localStorage.gofaceToken
+            )}`;
+            axios.delete(config.urls.face(item.id)).then();
           }
         })
         .catch((err) => {

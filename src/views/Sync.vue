@@ -96,7 +96,7 @@ export default {
         "Authorization"
       ] = `Bearer ${localStorage.getItem(config.localStorage.gofaceToken)}`;
       axios
-        .delete(config.urls.deleteFace(item.id))
+        .delete(config.urls.face(item.id))
         .then((res) => {
           if (res.status == 200) {
             this.faces = this.faces.filter((people) => people !== item);
