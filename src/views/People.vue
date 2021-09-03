@@ -80,7 +80,7 @@ export default {
         .get(config.urls.people)
         .then((res) => {
           let data = res.data;
-          this.people = data.data;
+          this.people = data.data.reverse();
         })
         .catch((err) => {
           if (err.response.status == 401) {
