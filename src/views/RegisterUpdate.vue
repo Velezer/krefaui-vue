@@ -34,6 +34,19 @@
           errors.whatsapp
         }}</small>
       </div>
+
+
+      <div class="form-group">
+        <input
+          v-on:input="attachCam"
+          v-model.trim="tanggal_lahir"
+          type="text"
+          placeholder="YYYY-MM-DD"
+        />
+        <p class="error-message" v-if="errors.tanggal_lahir">
+          {{ errors.tanggal_lahir }}
+        </p>
+      </div>
       <!-- <div class="form-group">
         <input type="text" placeholder="Instagram*" id="usr" />
       </div> -->
@@ -89,6 +102,7 @@ export default {
       nama: "",
       foto: "",
       whatsapp: "",
+      tanggal_lahir: ``,
       alamat: "",
       statusData: 0,
       statusFace: 0,
@@ -144,6 +158,7 @@ export default {
           this.foto = data.foto;
           this.whatsapp = this.id;
           this.alamat = data.alamat;
+          this.tanggal_lahir = data.tanggal_lahir;
         })
         .catch((err) => {
           callbacks.unauth(err.response.status, err.response.data.message);
@@ -160,6 +175,7 @@ export default {
         alert("Hanya data yg diupdate!");
       } else {
         alert("Gagal");
+        return
       }
       this.$router.go(-1);
     },
@@ -183,6 +199,7 @@ export default {
       let formData = this.formDataCom;
       formData.append("nama", this.nama);
       formData.append("whatsapp", this.whatsapp);
+      formData.append("tanggal_lahir", this.tanggal_lahir);
       formData.append("alamat", this.alamat);
       formData.append("_method", "PUT");
 

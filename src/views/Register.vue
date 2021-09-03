@@ -33,6 +33,19 @@
           errors.whatsapp
         }}</small>
       </div>
+
+      <div class="form-group">
+        <input
+          v-on:input="attachCam"
+          v-model.trim="tanggal_lahir"
+          type="text"
+          placeholder="YYYY-MM-DD"
+        />
+        <p class="error-message" v-if="errors.tanggal_lahir">
+          {{ errors.tanggal_lahir }}
+        </p>
+      </div>
+
       <!-- <div class="form-group">
         <input type="text" placeholder="Instagram*" id="usr" />
       </div> -->
@@ -51,8 +64,7 @@
 
       <button type="button3" class="btn2" v-on:click.prevent="register">
         Register
-        </button>
-
+      </button>
     </form>
 
     <!-- <input type="checkbox" class="agreement" value="agreement" />
@@ -89,6 +101,7 @@ export default {
       nama: "",
       whatsapp: "",
       alamat: "",
+      tanggal_lahir: ``,
       statusData: 0,
       statusFace: 0,
       statusConflict: 0,
@@ -157,6 +170,7 @@ export default {
       formData.append("nama", this.nama);
       formData.append("whatsapp", this.whatsapp);
       formData.append("alamat", this.alamat);
+      formData.append("tanggal_lahir", this.tanggal_lahir);
 
       let token = localStorage.getItem(config.localStorage.dataToken);
 

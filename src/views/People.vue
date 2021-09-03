@@ -19,6 +19,7 @@
         <th>Foto</th>
         <th>Nama</th>
         <th>Whatsapp</th>
+        <th>Kelahiran</th>
         <th>Alamat</th>
         <th>Action</th>
       </tr>
@@ -38,6 +39,7 @@
           </router-link>
         </td>
         <td>{{ person.whatsapp }}</td>
+        <td>{{ person.tanggal_lahir }}</td>
         <td>{{ person.alamat }}</td>
         <td>
           <router-link
