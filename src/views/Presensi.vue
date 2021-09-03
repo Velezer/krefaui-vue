@@ -16,7 +16,6 @@
       <button type="button3" class="btn2" v-on:click="findPerson">
         Ambil gambar
       </button>
-      
     </div>
   </div>
 </template>
@@ -43,7 +42,7 @@ export default {
     beginDetectFace() {
       setInterval(async () => {
         this.findPerson();
-      }, 5000);
+      }, 2000);
     },
     hadirBos(id_people) {
       let formData = new FormData();
@@ -68,11 +67,13 @@ export default {
         .catch((err) => {
           if (err.response.status == 400) {
             let errors = err.response.data.messages;
-            if(errors.error==`Anda sudah hadir`){
-              alert(errors.error)
+            if (errors.error == `Anda sudah hadir`) {
+              alert(errors.error);
+              this.$router.go(-1);
             }
           }
           callbacks.unauth(err.response.status);
+          alert(`Gagal!`);
         });
     },
     findPerson() {
@@ -113,6 +114,7 @@ export default {
         })
         .catch((err) => {
           callbacks.unauth(err.response.status, err.response.data.message);
+          alert(`Gagal!`);
         });
     },
   },
