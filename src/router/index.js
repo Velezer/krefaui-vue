@@ -12,6 +12,7 @@ import PeopleID from "@/views/PeopleID.vue";
 import LoginAdmin from "@/views/LoginAdmin.vue";
 import Sync from "@/views/Sync.vue";
 import NotFound from "@/views/NotFound.vue";
+import KeyPage from "@/views/KeyPage.vue";
 
 
 
@@ -81,6 +82,12 @@ const routes = [
         path: "/admin/sync",
         name: "Sync",
         component: Sync,
+    },
+
+    {
+        path: "/keypage",
+        name: "KeyPage",
+        component: KeyPage,
     },
 
     {
