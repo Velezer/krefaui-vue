@@ -9,7 +9,10 @@
         </h6>
       </div>
       <div class="Text">
-        <a href="#">Kreasi Face Attendance</a>
+        <router-link :to="{ name: 'KeyPage' }">
+          Kreasi Face Attendance
+          </router-link>
+        <!-- <a href="#">Kreasi Face Attendance</a> -->
         <ul class="nav navbar-nav navbar-right">
           <router-link :to="{ name: 'Events' }">
           <button type="button1" class="btn btn-link">Daftar Events</button>
