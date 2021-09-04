@@ -11,7 +11,7 @@
     </div>
     <div class="col-sm-5">
       <router-link :to="{ name: 'Sync' }">
-      <img src="@/assets/elements/landing_page_illustration.png" width="330" />
+      <img src="@/assets/elements/Logo_Krefa.jpeg" width="330" />
           </router-link>
 
     </div>
