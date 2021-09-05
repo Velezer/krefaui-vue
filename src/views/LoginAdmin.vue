@@ -26,7 +26,7 @@
       </div>
       <div class="form-group">
         <input
-          type="text"
+          type="password"
           v-model.trim.lazy="password"
           name="password"
           placeholder="Password"
