@@ -9,7 +9,7 @@
     </div>
   </div>
 
-  <div class="col-sm-6">
+  <div class="col-sm-6" style="padding-left: 290px">
     <form>
       <div class="form-group">
         <input

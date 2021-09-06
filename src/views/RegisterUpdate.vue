@@ -287,11 +287,14 @@ export default {
 </script>
 
 <style>
+form{
+  padding-right: 280px;
+}
 .container {
   padding-top: 100px;
 }
 .col-sm-6 img {
-  padding-left: 90px;
+  padding-left: 60px;
   padding-top: 100px;
 }
 .col-sm-5 {

@@ -2,8 +2,9 @@
   <div class="container text-center">
     <img src="@/assets/elements/Blue_Calendar.png" />
   </div>
-  <div class="col-sm-6">
+  
     <form id="form-event">
+      <div class="col-sm-6">
       <div class="form-group">
         <label for="comment">Judul Acara</label>
         <input 
@@ -24,7 +25,9 @@
         />
         <small class="error-message" v-if="errors.pembicara">{{ errors.pembicara }}</small>
       </div>
-      <div class="form-group">
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
         <label for="comment">Tempat Pelaksanaan</label>
         <input
           type="text"
@@ -44,58 +47,15 @@
         />
         <p class="error-message" v-if="errors.tanggal">{{ errors.tanggal }}</p>
       </div>
-    <button type="button3" class="btn2" v-on:click.prevent="createEvent">Buat</button>
+      </div>
 
-      <!--       
-      <div class="form-group">
-        <label for="comment">Deskripsi lengkap acara:</label>
-        <input type="text" placeholder="Gratis / Berbayar" />
-      </div>
-      <div class="form-group">
-        <label for="comment">Deskripsi lengkap acara:</label>
-        <input type="text" placeholder="cth. 1500 peserta" />
-      </div>
+
+    <button type="button3" class="btn2" v-on:click.prevent="createEvent" style="margin-left: 400px">Buat</button>
+
+      
     </form>
-  </div>
-  <div class="col-sm-3">
-    <form>
-      <div class="form-group">
-        <label for="comment">Deskripsi lengkap acara:</label>
-        <input type="text" placeholder="Nama Penyelenggara" />
-      </div>
-      <div class="form-group">
-        <label for="comment">Deskripsi lengkap acara:</label>
-        <input type="text" placeholder="Online / Offline" />
-      </div>
-      <div class="form-group">
-        <label for="comment">Deskripsi lengkap acara:</label>
-        <input type="text" placeholder="Lokasi / Link Acara" />
-      </div>
-      <div class="form-group">
-        <label for="comment">Deskripsi lengkap acara:</label>
-        <input type="text" placeholder="*Max. 3 MB" />
-      </div>
-      <div class="form-group">
-        <label for="comment">Deskripsi lengkap acara:</label>
-        <input type="text" placeholder="*Max. 5 MB" />
-      </div>
-      <div class="form-group">
-        <label for="comment">Deskripsi lengkap acara:</label>
-        <input type="text" placeholder="*Max. 70 MB" />
-      </div> -->
-    </form>
-    <!-- </div>
-  <div class="comment">
-    <div class="form-group">
-      <label for="comment">Deskripsi lengkap acara:</label>
-      <textarea
-        class="form-control"
-        rows="10"
-        id="comment"
-        placeholder="Tulis penjelasan acara secara detail"
-      ></textarea>
-    </div> -->
-  </div>
+  
+  
 
   <div class="container text-center">
     <!-- <input type="checkbox" class="agreement" value="agreement" />
@@ -240,4 +200,5 @@ input.agreement {
   height: 30px;
   margin-right: 10px;
 }
+
 </style>

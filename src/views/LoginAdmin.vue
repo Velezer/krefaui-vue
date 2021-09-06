@@ -33,7 +33,7 @@
         />
       </div>
     </form>
-    <button type="button3" class="btn2" v-on:click="getToken">Masuk</button>
+    <button type="button3" class="btn2" v-on:click="getToken" style="margin-left: -160px">Masuk</button>
     <button type="button4" class="btn3">Lupa Password</button>
   </div>
 
@@ -165,7 +165,7 @@ label input {
   text-decoration: none;
   display: inline-block;
   font-size: 20px;
-  margin: 4px 2px;
+  
   cursor: pointer;
   border-radius: 30px;
 }
