@@ -1,4 +1,6 @@
 <template>
+  <Popup foto="@/assets/elements/Profile_Picture.png" nama="Sensei" whatsapp="342343242"></Popup>
+
   <div class="container">
     <div class="col-sm-7">
       <div id="video">
@@ -26,12 +28,17 @@
 
 <script>
 import Webcam from "webcamjs";
+import Popup from "../components/Popup.vue";
+
 const axios = require("axios").default;
 const config = require("../config/config.js").default;
 const callbacks = require("../helper/helper").default;
 
 export default {
   props: ["id"],
+  components: {
+    Popup,
+  },
   data() {
     return {
       imageFile: [],
@@ -123,7 +130,11 @@ export default {
     setTimeout(() => {
       Webcam.attach("#video");
       // this.beginDetectFace();
-    }, 1000);
+    }, 5000);
+  },
+  mounted() {
+    var modal = document.getElementById("myModal");
+    modal.style.display = "block";
   },
 };
 </script>

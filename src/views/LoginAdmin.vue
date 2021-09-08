@@ -78,7 +78,6 @@ export default {
           }
         )
         .then((res) => {
-          console.log(res);
           this.statusDataToken = res.status;
           localStorage.setItem(
             config.localStorage.dataToken,
@@ -102,7 +101,6 @@ export default {
         })
         .then((res) => {
           this.statusFaceToken = res.status;
-          console.log(res.data.token);
           localStorage.setItem(config.localStorage.gofaceToken, res.data.token);
           if (this.statusDataToken == 200 && this.statusFaceToken == 200) {
             this.$router.go(-1);
