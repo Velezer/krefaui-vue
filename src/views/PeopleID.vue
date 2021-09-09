@@ -2,7 +2,7 @@
   <div class="container">
     <table>
       <img
-        :src="`http://` + host + `:8080/` + personData.foto"
+        :src="host + `/` + personData.foto"
         :alt="personData.nama"
         width="300"
       />
@@ -45,9 +45,8 @@ export default {
   data() {
     return {
       attendance: [],
-      baseAPIURL: `http://${location.hostname}:8080`,
       personData: [],
-      host: location.hostname,
+      host: config.baseImgUrl,
     };
   },
   created() {
@@ -59,7 +58,7 @@ export default {
   methods: {
     getAttendanceByPersonId(id) {
       axios
-        .get(`${this.baseAPIURL}/api/attendance/people/${id}`)
+        .get(config.urls.attendancePeople(id))
         .then((res) => {
           let data = res.data;
           this.attendance = data.data;

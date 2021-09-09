@@ -28,7 +28,7 @@
         <td>{{ i + 1 }}</td>
         <td>
           <img
-            :src="`http://` + host + `:8080/` + person.foto"
+            :src="host + `/` + person.foto"
             :alt="person.nama"
             width="100"
           />
@@ -72,7 +72,7 @@ export default {
     return {
       people: [],
       descriptors: {},
-      host: location.hostname,
+      host: config.baseImgUrl,
     };
   },
   created() {

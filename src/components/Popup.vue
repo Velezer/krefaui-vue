@@ -3,16 +3,20 @@
   <!-- The Modal -->
   <div id="myModal" class="modal">
     <!-- Modal content -->
-    <div class="modal-content">
+    <div class="modal-content" v-if="detected.length > 0">
       <span class="close" @click="closeModal">&times;</span>
       <section style="width: fit-content; margin: auto">
         <img
-          :src="require('../assets/elements/Profile_Picture.png')"
-          width="120"
+          :src="
+            detected[0].foto ||
+            require('../assets/elements/Profile_Picture.png')
+          "
+          width="240"
+          height="180"
         />
       </section>
 
-      <article v-if="detected.length > 0">
+      <article>
         <h5>Nama : {{ detected[0].name }}</h5>
         <h5>Whatsapp : {{ detected[0].id }}</h5>
         <!-- <h5>Alamat : Kudus</h5> -->
@@ -76,7 +80,6 @@ export default {
       modal.style.display = "none";
     },
   },
-
 };
 </script>
 

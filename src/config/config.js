@@ -1,18 +1,19 @@
-let baseUrl = `http://${location.hostname}:8080`
+let dataUrl = `http://${location.hostname}:8080`
 let faceUrl = `http://${location.hostname}:8000`
 
 let config = {
+    baseImgUrl: dataUrl,
     urls: {
-        events: `${baseUrl}/api/events`,
-        event(id) { return `${baseUrl}/api/events/${id}` },
-        people: `${baseUrl}/api/people`,
-        person(id) { return `${baseUrl}/api/people/${id}` },
-        dataLogin: `${baseUrl}/oauth2/login`,
+        events: `${dataUrl}/api/events`,
+        event(id) { return `${dataUrl}/api/events/${id}` },
+        people: `${dataUrl}/api/people`,
+        person(id) { return `${dataUrl}/api/people/${id}` },
+        dataLogin: `${dataUrl}/oauth2/login`,
 
-        attendancehadir: `${baseUrl}/api/attendance/hadir`,
-        attendancePeople(id) { return `${baseUrl}/api/attendance/people/${id}` },
-        attendanceEvents(id) { return `${baseUrl}/api/attendance/events/${id}` },
-        deleteAttendance(idEvents,idPeople) { return `${baseUrl}/api/attendance/${idEvents}/${idPeople}` },
+        attendancehadir: `${dataUrl}/api/attendance/hadir`,
+        attendancePeople(id) { return `${dataUrl}/api/attendance/people/${id}` },
+        attendanceEvents(id) { return `${dataUrl}/api/attendance/events/${id}` },
+        deleteAttendance(idEvents, idPeople) { return `${dataUrl}/api/attendance/${idEvents}/${idPeople}` },
 
         allFace: `${faceUrl}/api/face`,
         findFace: `${faceUrl}/api/face/find`,

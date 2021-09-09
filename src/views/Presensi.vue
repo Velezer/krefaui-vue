@@ -59,15 +59,18 @@ export default {
     },
     getFoto(id) {
       let token = localStorage.getItem(config.localStorage.dataToken);
-      axios
-        .get(`${config.urls.person(id)}`, {
+      axios({
+        method: "get",
+        url: config.urls.person(id),
+        headers: {
           Authorization: `Bearer ${token}`,
-        })
-        .then((res) => {
-          let data = res.data;
-          data = data.data;
-          this.detected[0].foto = data.foto;
-        });
+        },
+      }).then((res) => {
+        let data = res.data;
+        data = data.data;
+        this.detected[0].foto = config.baseImgUrl+`/`+data.foto;
+        console.log(this.detected[0])
+      });
     },
 
     findPerson() {
