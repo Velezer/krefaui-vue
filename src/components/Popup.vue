@@ -9,12 +9,14 @@
         <img :src="foto" width="120" />
       </section>
       <article>
-        <h5>Nama : {{nama}}</h5>
-        <h5>Whatsapp : {{whatsapp}}</h5>
+        <h5>Nama : {{ nama }}</h5>
+        <h5>Whatsapp : {{ whatsapp }}</h5>
         <!-- <h5>Alamat : Kudus</h5> -->
         <h3>Apa Benar Ini Anda?</h3>
-        <button type="button3" class="btn2">Ya benar, ini saya</button>
-        <button type="button3" class="btn3">Bukan</button>
+        <button type="button3" class="btn2" @click="yes">
+          Ya benar, ini saya
+        </button>
+        <button type="button3" class="btn3" @click="no">Bukan</button>
       </article>
     </div>
   </div>
@@ -22,9 +24,65 @@
 
 
 <script>
-export default{
-  props:[`foto`,`nama`,`whatsapp`]
-}
+const axios = require("axios").default;
+const config = require("../config/config.js").default;
+const callbacks = require("../helper/helper").default;
+
+export default {
+  props: [`foto`, `nama`, `whatsapp`, `detected`, `id_events`],
+  methods: {
+    hadirBos(id_people) {
+      let formData = new FormData();
+      formData.append("id_events", id_events); //props
+      formData.append("id_people", id_people);
+
+      let token = localStorage.getItem(config.localStorage.dataToken);
+
+      axios({
+        method: "post",
+        url: config.urls.attendancehadir,
+        data: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then(() => {
+          alert("Semoga Sukses!");
+          this.$router.go(-1);
+        })
+        .catch((err) => {
+          if (err.response.status == 400) {
+            let errors = err.response.data.messages;
+            if (errors.error == `Anda sudah hadir`) {
+              alert(errors.error);
+              this.$router.go(-1);
+            }
+          }
+          callbacks.unauth(err.response.status);
+          alert(`Gagal!`);
+        });
+    },
+    yes() {
+      this.hadirBos(whatsapp);
+    },
+    no() {
+      this.detected.splice(0, 1);
+    },
+    changeDetected(i) {
+      person = detected[i];
+      this.foto = person.foto;
+      this.nama = person.nama;
+      this.whatapp = person.whatapp;
+      if (person.name == "Unknown") {
+        return this.$router.push({ name: "Register" });
+      }
+    },
+  },
+  mounted() {
+    changeDetected(0);
+  },
+};
 // Get the modal
 // var modal = document.getElementById("myModal");
 

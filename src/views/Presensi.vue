@@ -1,5 +1,11 @@
 <template>
-  <Popup foto="@/assets/elements/Profile_Picture.png" nama="Sensei" whatsapp="342343242"></Popup>
+  <Popup
+    :foto="foto ? foto : require('../assets/elements/Profile_Picture.png')"
+    :nama="nama ? nama : '.................'"
+    :whatsapp="whatsapp ? '' : '...........'"
+    :detected="detected"
+    :id_events="id"
+  ></Popup>
 
   <div class="container">
     <div class="col-sm-7">
@@ -43,6 +49,11 @@ export default {
     return {
       imageFile: [],
       token: "",
+      foto: ``,
+      nama: ``,
+      whatsapp: ``,
+      display: ``,
+      detected: [],
     };
   },
   methods: {
@@ -51,38 +62,7 @@ export default {
         this.findPerson();
       }, 2000);
     },
-    hadirBos(id_people) {
-      let formData = new FormData();
-      formData.append("id_events", this.id);
-      formData.append("id_people", id_people);
 
-      let token = localStorage.getItem(config.localStorage.dataToken);
-
-      axios({
-        method: "post",
-        url: config.urls.attendancehadir,
-        data: formData,
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then(() => {
-          alert("Semoga Sukses!");
-          this.$router.go(-1);
-        })
-        .catch((err) => {
-          if (err.response.status == 400) {
-            let errors = err.response.data.messages;
-            if (errors.error == `Anda sudah hadir`) {
-              alert(errors.error);
-              this.$router.go(-1);
-            }
-          }
-          callbacks.unauth(err.response.status);
-          alert(`Gagal!`);
-        });
-    },
     findPerson() {
       let formData = new FormData();
       Webcam.snap(function (data_uri) {
@@ -104,25 +84,41 @@ export default {
           Authorization: `Bearer ${token}`,
         },
       })
-        .then((res) => {
+        .then(async (res) => {
           if (res.status == 200) {
             let detected = res.data.data;
-            for (const i in detected) {
-              const person = detected[i];
-              if (person.name == "Unknown") {
-                return this.$router.push({ name: "Register" });
-              }
-              if (confirm(person.name)) {
-                this.hadirBos(person.id);
-                break;
-              }
-            }
+            this.detected = detected;
+            // for (const i in detected) {
+            //   const person = detected[i];
+            //   if (person.name == "Unknown") {
+            //     return this.$router.push({ name: "Register" });
+            //   }
+
+            this.toggleModal(person.name, person.whatsapp);
+
+            //   if (confirm(person.name)) {
+            //     this.hadirBos(person.id);
+            //     break;
+            //   }
+            // }
           }
         })
         .catch((err) => {
           callbacks.unauth(err.response.status, err.response.data.message);
           alert(`Gagal!`);
         });
+    },
+    toggleModal(name, whatsapp) {
+      this.nama = name ? name : this.nama;
+      this.whatsapp = whatsapp ? whatsapp : this.whatsapp;
+      var modal = document.getElementById("myModal");
+      if (modal.style.display == "block") {
+        modal.style.display = "none";
+      } else if (modal.style.display == "none") {
+        modal.style.display = "block";
+      } else {
+        modal.style.display = "block";
+      }
     },
   },
   created() {
@@ -132,10 +128,7 @@ export default {
       // this.beginDetectFace();
     }, 5000);
   },
-  mounted() {
-    var modal = document.getElementById("myModal");
-    modal.style.display = "block";
-  },
+  mounted() {},
 };
 </script>
 
