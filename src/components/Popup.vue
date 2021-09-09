@@ -6,10 +6,13 @@
     <div class="modal-content">
       <span class="close" @click="closeModal">&times;</span>
       <section style="width: fit-content; margin: auto">
-        <img :src="require('../assets/elements/Profile_Picture.png')" width="120" />
+        <img
+          :src="require('../assets/elements/Profile_Picture.png')"
+          width="120"
+        />
       </section>
-      
-      <article v-if="detected.length>0">
+
+      <article v-if="detected.length > 0">
         <h5>Nama : {{ detected[0].name }}</h5>
         <h5>Whatsapp : {{ detected[0].id }}</h5>
         <!-- <h5>Alamat : Kudus</h5> -->
@@ -17,7 +20,7 @@
         <button type="button3" class="btn2" @click="yes">
           Ya benar, ini saya
         </button>
-        <button type="button3" class="btn3" @click="no">Bukan</button>
+        <button type="button3" class="btn3" @click="$emit('no')">Bukan</button>
       </article>
     </div>
   </div>
@@ -31,10 +34,6 @@ const callbacks = require("../helper/helper").default;
 
 export default {
   props: [`detected`, `id_events`],
-  data() {
-    return {
-    };
-  },
   methods: {
     hadirBos(id_people) {
       let formData = new FormData();
@@ -69,29 +68,15 @@ export default {
         });
     },
     yes() {
-      this.hadirBos(this.mwhatsapp);
+      this.hadirBos(this.detected[0].id);
     },
-    no() {
-      this.mdetected.splice(0, 1);
-    },
-    changeDetected(i) {
-      let person = this.detected[i];
-      this.mfoto = person.foto;
-      this.mnama = person.nama;
-      this.mwhatsapp = person.whatsapp;
-      if (person.name == "Unknown") {
-        return this.$router.push({ name: "Register" });
-      }
-    },
+
     closeModal() {
       var modal = document.getElementById("myModal");
       modal.style.display = "none";
     },
   },
-  watch() {},
-  mounted() {
-    // this.changeDetected(0);
-  },
+
 };
 </script>
 

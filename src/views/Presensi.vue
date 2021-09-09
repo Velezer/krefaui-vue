@@ -1,8 +1,5 @@
 <template>
-  <Popup
-    :detected="detected"
-    :id_events="id"
-  ></Popup>
+  <Popup :detected="detected" :id_events="id" v-on:no="no"></Popup>
 
   <div class="container">
     <div class="col-sm-7">
@@ -49,10 +46,28 @@ export default {
     };
   },
   methods: {
-    beginDetectFace() {
-      setInterval(async () => {
-        this.findPerson();
-      }, 2000);
+    redirectToRegister() {
+      let person = this.detected[0];
+      if (person.name == "Unknown") {
+        return this.$router.push({ name: "Register" });
+      }
+    },
+    no() {
+      this.detected.splice(0, 1);
+      this.redirectToRegister();
+      this.getFoto(this.detected[0].id);
+    },
+    getFoto(id) {
+      let token = localStorage.getItem(config.localStorage.dataToken);
+      axios
+        .get(`${config.urls.person(id)}`, {
+          Authorization: `Bearer ${token}`,
+        })
+        .then((res) => {
+          let data = res.data;
+          data = data.data;
+          this.detected[0].foto = data.foto;
+        });
     },
 
     findPerson() {
@@ -80,9 +95,9 @@ export default {
           if (res.status == 200) {
             let detected = res.data.data;
             this.detected = detected;
-            console.log(this.detected[0])
+            this.redirectToRegister();
+            this.getFoto(this.detected[0].id);
             this.toggleModal();
-
           }
         })
         .catch((err) => {
@@ -105,10 +120,8 @@ export default {
     Webcam.set(config.webcam);
     setTimeout(() => {
       Webcam.attach("#video");
-      // this.beginDetectFace();
     }, 1000);
   },
-  mounted() {},
 };
 </script>
 
