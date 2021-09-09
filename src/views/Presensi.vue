@@ -94,7 +94,7 @@ export default {
             //     return this.$router.push({ name: "Register" });
             //   }
 
-            this.toggleModal(person.name, person.whatsapp);
+            this.toggleModal();
 
             //   if (confirm(person.name)) {
             //     this.hadirBos(person.id);

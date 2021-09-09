@@ -9,8 +9,8 @@
         <img :src="foto" width="120" />
       </section>
       <article>
-        <h5>Nama : {{ nama }}</h5>
-        <h5>Whatsapp : {{ whatsapp }}</h5>
+        <h5>Nama : {{ mnama ? mnama : nama }}</h5>
+        <h5>Whatsapp : {{ mwhatsapp ? mwhatsapp : whatsapp }}</h5>
         <!-- <h5>Alamat : Kudus</h5> -->
         <h3>Apa Benar Ini Anda?</h3>
         <button type="button3" class="btn2" @click="yes">
@@ -30,10 +30,18 @@ const callbacks = require("../helper/helper").default;
 
 export default {
   props: [`foto`, `nama`, `whatsapp`, `detected`, `id_events`],
+  data() {
+    return {
+      mfoto: ``,
+      mnama: ``,
+      mwhatsapp: ``,
+      mdetected: [],
+    };
+  },
   methods: {
     hadirBos(id_people) {
       let formData = new FormData();
-      formData.append("id_events", id_events); //props
+      formData.append("id_events", this.id_events); //props
       formData.append("id_people", id_people);
 
       let token = localStorage.getItem(config.localStorage.dataToken);
@@ -64,23 +72,23 @@ export default {
         });
     },
     yes() {
-      this.hadirBos(whatsapp);
+      this.hadirBos(this.whatsapp);
     },
     no() {
-      this.detected.splice(0, 1);
+      this.mdetected.splice(0, 1);
     },
     changeDetected(i) {
-      person = detected[i];
-      this.foto = person.foto;
-      this.nama = person.nama;
-      this.whatapp = person.whatapp;
+      let person = this.detected[i];
+      this.mfoto = person.foto;
+      this.mnama = person.nama;
+      this.mwhatsapp = person.whatsapp;
       if (person.name == "Unknown") {
         return this.$router.push({ name: "Register" });
       }
     },
   },
   mounted() {
-    changeDetected(0);
+    this.changeDetected(0);
   },
 };
 // Get the modal
