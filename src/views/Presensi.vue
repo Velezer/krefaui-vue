@@ -1,8 +1,5 @@
 <template>
   <Popup
-    :foto="foto ? foto : require('../assets/elements/Profile_Picture.png')"
-    :nama="nama ? nama : '.................'"
-    :whatsapp="whatsapp ? '' : '...........'"
     :detected="detected"
     :id_events="id"
   ></Popup>
@@ -47,11 +44,6 @@ export default {
   },
   data() {
     return {
-      imageFile: [],
-      token: "",
-      foto: ``,
-      nama: ``,
-      whatsapp: ``,
       display: ``,
       detected: [],
     };
@@ -88,19 +80,9 @@ export default {
           if (res.status == 200) {
             let detected = res.data.data;
             this.detected = detected;
-            // for (const i in detected) {
-            //   const person = detected[i];
-            //   if (person.name == "Unknown") {
-            //     return this.$router.push({ name: "Register" });
-            //   }
-
+            console.log(this.detected[0])
             this.toggleModal();
 
-            //   if (confirm(person.name)) {
-            //     this.hadirBos(person.id);
-            //     break;
-            //   }
-            // }
           }
         })
         .catch((err) => {
@@ -108,9 +90,7 @@ export default {
           alert(`Gagal!`);
         });
     },
-    toggleModal(name, whatsapp) {
-      this.nama = name ? name : this.nama;
-      this.whatsapp = whatsapp ? whatsapp : this.whatsapp;
+    toggleModal() {
       var modal = document.getElementById("myModal");
       if (modal.style.display == "block") {
         modal.style.display = "none";
@@ -126,7 +106,7 @@ export default {
     setTimeout(() => {
       Webcam.attach("#video");
       // this.beginDetectFace();
-    }, 5000);
+    }, 1000);
   },
   mounted() {},
 };

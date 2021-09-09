@@ -4,13 +4,14 @@
   <div id="myModal" class="modal">
     <!-- Modal content -->
     <div class="modal-content">
-      <span class="close">&times;</span>
+      <span class="close" @click="closeModal">&times;</span>
       <section style="width: fit-content; margin: auto">
-        <img :src="foto" width="120" />
+        <img :src="require('../assets/elements/Profile_Picture.png')" width="120" />
       </section>
-      <article>
-        <h5>Nama : {{ mnama ? mnama : nama }}</h5>
-        <h5>Whatsapp : {{ mwhatsapp ? mwhatsapp : whatsapp }}</h5>
+      
+      <article v-if="detected.length>0">
+        <h5>Nama : {{ detected[0].name }}</h5>
+        <h5>Whatsapp : {{ detected[0].id }}</h5>
         <!-- <h5>Alamat : Kudus</h5> -->
         <h3>Apa Benar Ini Anda?</h3>
         <button type="button3" class="btn2" @click="yes">
@@ -29,13 +30,9 @@ const config = require("../config/config.js").default;
 const callbacks = require("../helper/helper").default;
 
 export default {
-  props: [`foto`, `nama`, `whatsapp`, `detected`, `id_events`],
+  props: [`detected`, `id_events`],
   data() {
     return {
-      mfoto: ``,
-      mnama: ``,
-      mwhatsapp: ``,
-      mdetected: [],
     };
   },
   methods: {
@@ -68,11 +65,11 @@ export default {
             }
           }
           callbacks.unauth(err.response.status);
-          alert(`Gagal!`);
+          alert(`Gagal! Coba lagi`);
         });
     },
     yes() {
-      this.hadirBos(this.whatsapp);
+      this.hadirBos(this.mwhatsapp);
     },
     no() {
       this.mdetected.splice(0, 1);
@@ -86,33 +83,16 @@ export default {
         return this.$router.push({ name: "Register" });
       }
     },
+    closeModal() {
+      var modal = document.getElementById("myModal");
+      modal.style.display = "none";
+    },
   },
+  watch() {},
   mounted() {
-    this.changeDetected(0);
+    // this.changeDetected(0);
   },
 };
-// Get the modal
-// var modal = document.getElementById("myModal");
-
-// // Get the <span> element that closes the modal
-// var span = document.getElementsByClassName("close")[0];
-
-// // When the user clicks the button, open the modal
-// // btn.onclick = function () {
-// //   modal.style.display = "block";
-// // };
-
-// // When the user clicks on <span> (x), close the modal
-// span.onclick = function () {
-//   modal.style.display = "none";
-// };
-
-// // When the user clicks anywhere outside of the modal, close it
-// window.onclick = function (event) {
-//   if (event.target == modal) {
-//     modal.style.display = "none";
-//   }
-// };
 </script>
 
 

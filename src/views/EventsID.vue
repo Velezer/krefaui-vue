@@ -81,7 +81,6 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err.response);
           callbacks.unauth(err.response.status, err.response.data.message);
         });
     },
@@ -89,14 +88,12 @@ export default {
       axios
         .get(`${this.baseAPIURL}/api/attendance/events/${id}`)
         .then((res) => {
-          console.log(res)
 
           let data = res.data;
           this.attendance = data.data;
           this.eventName = this.attendance[0]["judul"];
         })
         .catch((err) => {
-          console.log(err.response)
           if (err.response.status == 401) {
             this.$router.push({ name: "Login" });
           }
