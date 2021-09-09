@@ -10,27 +10,24 @@
 
   <div class="col-sm-6">
     <form>
-      
       <div class="form-group">
         <input
           v-model.trim="whatsapp"
           type="text"
           placeholder="NO. WhatsApp*"
         />
-        <small class="error-message" v-if="errors.id_people">
-          Required!
-        </small>
+        <small class="error-message" v-if="errors.id_people"> Required! </small>
       </div>
-     
 
-      <button type="button3" class="btn2" v-on:click.prevent="hadirBos(whatsapp)">
+      <button
+        type="button3"
+        class="btn2"
+        v-on:click.prevent="hadirBos(whatsapp)"
+      >
         Submit
       </button>
     </form>
-
-
   </div>
-
 
   <br />
   <br />
@@ -53,12 +50,12 @@ export default {
   data() {
     return {
       whatsapp: "",
-      errors:{}
+      errors: {},
     };
   },
   methods: {
     hadirBos(id_people) {
-      this.errors={}
+      this.errors = {};
       let formData = new FormData();
       formData.append("id_events", this.id);
       formData.append("id_people", id_people);
@@ -79,20 +76,19 @@ export default {
           this.$router.go(-1);
         })
         .catch((err) => {
-          console.log(err.response)
           if (err.response.status == 400) {
             let errors = err.response.data.messages;
             this.errors = errors;
-            if(errors.error==`Anda sudah hadir`){
-              alert(errors.error)
+            if (errors.error == `Anda sudah hadir`) {
+              alert(errors.error);
             }
+          }else {
+            alert(`Gagal! Pastikan No. Whatsapp mu sudah terdaftar dan coba lagi`);
           }
           callbacks.unauth(err.response.status);
         });
     },
-    
   },
-  
 };
 </script>
 

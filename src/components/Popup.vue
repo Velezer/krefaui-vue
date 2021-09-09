@@ -66,9 +66,10 @@ export default {
               alert(errors.error);
               this.$router.go(-1);
             }
+          } else {
+            alert(`Gagal! Coba lagi`);
           }
           callbacks.unauth(err.response.status);
-          alert(`Gagal! Coba lagi`);
         });
     },
     yes() {
