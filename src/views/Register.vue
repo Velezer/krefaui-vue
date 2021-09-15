@@ -62,6 +62,22 @@
         }}</small>
       </div>
 
+      <div id="checkbox">
+        <h3>Status Sekolah/Kerja :</h3>
+        
+  <input type="radio" id="vehicle1" name="sekolah" value="Bike">
+  <label for="vehicle1"> SMP</label><br>
+  <input type="radio" id="vehicle2" name="sekolah" value="Car">
+  <label for="radio"> SMA</label><br>
+  <input type="radio" id="vehicle3" name="sekolah" value="Boat">
+  <label for="vehicle3"> Kuliah</label><br>
+  <input type="radio" id="vehicle3" name="pekerjaan" value="Boat">
+  <label for="vehicle3"> Kerja</label><br>
+      </div>
+
+  
+
+
       <button type="button3" class="btn2" v-on:click.prevent="register">
         Register
       </button>
@@ -243,9 +259,7 @@ export default {
 </script>
 
 <style>
-.container {
-  padding-top: 100px;
-}
+
 .col-sm-6 img {
   padding-left: 90px;
   padding-top: 100px;
@@ -321,4 +335,20 @@ input.agreement {
   height: 30px;
   margin-right: 10px;
 }
+#checkbox{
+  width: 500px;
+  text-align: left;
+}
+
+#checkbox label{
+  font-size: 23px;
+  padding-left: 5px;
+  font-weight: 100;
+}
+
+#checkbox input{
+  width: 15px;
+  height: 15px;
+}
+
 </style>
