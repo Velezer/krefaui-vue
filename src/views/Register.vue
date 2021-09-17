@@ -64,22 +64,54 @@
 
       <div id="checkbox">
         <h3>Status Sekolah :</h3>
-        
-  <input type="radio" id="Sekolah" name="sekolah" value="SMP">
-  <label for="SMP"> SMP</label><br>
-  <input type="radio" id="Sekolah" name="sekolah" value="SMA">
-  <label for="SMA"> SMA</label><br>
-  <input type="radio" id="Sekolah" name="sekolah" value="Kuliah">
-  <label for="Kuliah"> Kuliah</label><br>
-  <h3>Status Kerja :</h3>
-  <input type="radio" id="Pekerjaan" name="pekerjaan" value="Kerja">
-  <label for="Kerja"> Kerja</label><br>
-  <input type="radio" id="Pekerjaan" name="pekerjaan" value="TidakKerja">
-  <label for="TidakKerja"> Tidak Kerja</label><br>
+        <p class="error-message" v-if="errors.status_sekolah">
+          {{ errors.status_sekolah }}
+        </p>
+        <input
+          type="radio"
+          id="Sekolah"
+          name="sekolah"
+          value="SMP"
+          v-model="status_sekolah"
+        />
+        <label for="SMP"> SMP</label><br />
+        <input
+          type="radio"
+          id="Sekolah"
+          name="sekolah"
+          value="SMA"
+          v-model="status_sekolah"
+        />
+        <label for="SMA"> SMA</label><br />
+        <input
+          type="radio"
+          id="Sekolah"
+          name="sekolah"
+          value="Kuliah"
+          v-model="status_sekolah"
+        />
+        <label for="Kuliah"> Kuliah</label><br />
+        <h3>Status Kerja :</h3>
+        <p class="error-message" v-if="errors.status_sekolah">
+          {{ errors.status_sekolah }}
+        </p>
+        <input
+          type="radio"
+          id="Pekerjaan"
+          name="pekerjaan"
+          value="Kerja"
+          v-model="status_kerja"
+        />
+        <label for="Kerja"> Kerja</label><br />
+        <input
+          type="radio"
+          id="Pekerjaan"
+          name="pekerjaan"
+          value="Tidak Kerja"
+          v-model="status_kerja"
+        />
+        <label for="Tidak Kerja"> Tidak Kerja</label><br />
       </div>
-
-  
-
 
       <button type="button3" class="btn2" v-on:click.prevent="register">
         Register
@@ -121,6 +153,8 @@ export default {
       whatsapp: "",
       alamat: "",
       tanggal_lahir: ``,
+      status_sekolah: ``,
+      status_kerja: ``,
       statusData: 0,
       statusFace: 0,
       statusConflict: 0,
@@ -190,6 +224,8 @@ export default {
       formData.append("whatsapp", this.whatsapp);
       formData.append("alamat", this.alamat);
       formData.append("tanggal_lahir", this.tanggal_lahir);
+      formData.append("status_sekolah", this.status_sekolah);
+      formData.append("status_kerja", this.status_kerja);
 
       let token = localStorage.getItem(config.localStorage.dataToken);
 
@@ -243,6 +279,9 @@ export default {
           }
         })
         .catch((err) => {
+          if (err.response.status == 401) {
+            return this.$router.push({ name: "Login" });
+          }
           if (err.response.status == 409) {
             for (let i = 0; i < 5; i++) {
               this.updateFace(formData, token);
@@ -253,8 +292,6 @@ export default {
           if (error !== undefined) {
             alert(error);
           }
-
-          callbacks.unauth(err.response.status, err.response.data.message);
         });
     },
   },
@@ -262,7 +299,6 @@ export default {
 </script>
 
 <style>
-
 .col-sm-6 img {
   padding-left: 90px;
   padding-top: 100px;
@@ -338,20 +374,19 @@ input.agreement {
   height: 30px;
   margin-right: 10px;
 }
-#checkbox{
+#checkbox {
   width: 500px;
   text-align: left;
 }
 
-#checkbox label{
+#checkbox label {
   font-size: 23px;
   padding-left: 5px;
   font-weight: 100;
 }
 
-#checkbox input{
+#checkbox input {
   width: 15px;
   height: 15px;
 }
-
 </style>

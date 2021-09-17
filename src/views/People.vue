@@ -20,6 +20,8 @@
         <th>Nama</th>
         <th>Whatsapp</th>
         <th>Kelahiran</th>
+        <th>Status Sekolah</th>
+        <th>Status Kerja</th>
         <th>Alamat</th>
         <th>Action</th>
       </tr>
@@ -27,12 +29,8 @@
       <tr v-for="(person, i) in people" :key="person.id">
         <td>{{ i + 1 }}</td>
         <td>
-          <img
-            :src="host + `/` + person.foto"
-            :alt="person.nama"
-            width="100"
-          />
-          <br>
+          <img :src="host + `/` + person.foto" :alt="person.nama" width="100" />
+          <br />
           <small>
             {{ person.descriptors }}
           </small>
@@ -44,6 +42,8 @@
         </td>
         <td>{{ person.whatsapp }}</td>
         <td>{{ person.tanggal_lahir }}</td>
+        <td>{{ person.status_sekolah }}</td>
+        <td>{{ person.status_kerja }}</td>
         <td>{{ person.alamat }}</td>
         <td>
           <router-link
@@ -99,7 +99,7 @@ export default {
           .catch(() => {
             return 0;
           });
-        
+
         person.descriptors = status;
       });
     },
@@ -112,7 +112,7 @@ export default {
         .then((res) => {
           let data = res.data;
           this.people = data.data.reverse();
-          this.getDescriptor()
+          this.getDescriptor();
         })
         .catch((err) => {
           if (err.response.status == 401) {
