@@ -63,16 +63,19 @@
       </div>
 
       <div id="checkbox">
-        <h3>Status Sekolah/Kerja :</h3>
+        <h3>Status Sekolah :</h3>
         
-  <input type="radio" id="vehicle1" name="sekolah" value="Bike">
-  <label for="vehicle1"> SMP</label><br>
-  <input type="radio" id="vehicle2" name="sekolah" value="Car">
-  <label for="radio"> SMA</label><br>
-  <input type="radio" id="vehicle3" name="sekolah" value="Boat">
-  <label for="vehicle3"> Kuliah</label><br>
-  <input type="radio" id="vehicle3" name="pekerjaan" value="Boat">
-  <label for="vehicle3"> Kerja</label><br>
+  <input type="radio" id="Sekolah" name="sekolah" value="SMP">
+  <label for="SMP"> SMP</label><br>
+  <input type="radio" id="Sekolah" name="sekolah" value="SMA">
+  <label for="SMA"> SMA</label><br>
+  <input type="radio" id="Sekolah" name="sekolah" value="Kuliah">
+  <label for="Kuliah"> Kuliah</label><br>
+  <h3>Status Kerja :</h3>
+  <input type="radio" id="Pekerjaan" name="pekerjaan" value="Kerja">
+  <label for="Kerja"> Kerja</label><br>
+  <input type="radio" id="Pekerjaan" name="pekerjaan" value="TidakKerja">
+  <label for="TidakKerja"> Tidak Kerja</label><br>
       </div>
 
   
