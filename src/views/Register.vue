@@ -91,9 +91,12 @@
           v-model="status_sekolah"
         />
         <label for="Kuliah"> Kuliah</label><br />
+
+
+        
         <h3>Status Kerja :</h3>
-        <p class="error-message" v-if="errors.status_sekolah">
-          {{ errors.status_sekolah }}
+        <p class="error-message" v-if="errors.status_kerja">
+          {{ errors.status_kerja }}
         </p>
         <input
           type="radio"
