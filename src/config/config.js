@@ -1,6 +1,6 @@
 // let dataUrl = `http://${location.hostname}:8080`
 let dataUrl = `https://krefa-data-api.herokuapp.com/`
-let faceUrl = `http://${location.hostname}:8000`
+let faceUrl = `https://${location.hostname}:8000`
 
 let config = {
     baseImgUrl: dataUrl,

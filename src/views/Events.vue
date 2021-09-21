@@ -56,7 +56,6 @@ export default {
   data() {
     return {
       events: {},
-      urlEvents: `http://${location.hostname}:8080`,
     };
   },
   created() {
