@@ -54,7 +54,7 @@ export default {
   data() {
     return {
       attendance: [],
-      baseAPIURL: `http://${location.hostname}:8080`,
+      baseAPIURL: config.baseImgUrl,
       eventName: "",
     };
   },
