@@ -2,7 +2,7 @@
 // let faceUrl = `http://${location.hostname}`
 // let faceUrl = `http://${location.hostname}:8000`
 let dataUrl = `https://krefa-data-api.herokuapp.com`
-let faceUrl = `https://goface-api-echo.herokuapp.com`
+let faceUrl = `https://cors-container.herokuapp.com/https://goface-api-echo.herokuapp.com`
 
 let config = {
     baseImgUrl: dataUrl,
