@@ -190,7 +190,7 @@ export default {
             this.webc.set(config.webcam);
             this.webc.attach("#video");
           }
-        }, 1000);
+        }, 500);
       }
     },
     async register() {

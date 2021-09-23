@@ -1,5 +1,4 @@
 // let dataUrl = `http://${location.hostname}:8080`
-// let faceUrl = `http://${location.hostname}`
 // let faceUrl = `http://${location.hostname}:8000`
 let dataUrl = `https://krefa-data-api.herokuapp.com`
 let faceUrl = `https://goface-api-echo.herokuapp.com`
