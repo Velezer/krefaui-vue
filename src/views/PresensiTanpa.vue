@@ -1,39 +1,43 @@
 <template>
-  <div class="container text-center">
-    <h1>Presensi Biasa</h1>
-  </div>
-  <div class="col-sm-5" style="padding-top: 0px">
-    <div id="video">
-      <img src="@/assets/elements/Blue_Icon_Profile.png" width="420" />
+  <div>
+    <div class="container text-center">
+      <h1>Presensi Biasa</h1>
     </div>
-  </div>
-
-  <div class="col-sm-6">
-    <form>
-      <div class="form-group">
-        <input
-          v-model.trim="whatsapp"
-          type="text"
-          placeholder="NO. WhatsApp*"
-        />
-        <small class="error-message" v-if="errors.id_people"> Required! </small>
+    <div class="col-sm-5" style="padding-top: 0px">
+      <div id="video">
+        <img src="@/assets/elements/Blue_Icon_Profile.png" width="420" />
       </div>
+    </div>
 
-      <button
-        type="button3"
-        class="btn2"
-        v-on:click.prevent="hadirBos(whatsapp)"
-      >
-        Submit
-      </button>
-    </form>
+    <div class="col-sm-6">
+      <form>
+        <div class="form-group">
+          <input
+            v-model.trim="whatsapp"
+            type="text"
+            placeholder="NO. WhatsApp*"
+          />
+          <small class="error-message" v-if="errors.id_people">
+            Required!
+          </small>
+        </div>
+
+        <button
+          type="button3"
+          class="btn2"
+          v-on:click.prevent="hadirBos(whatsapp)"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <footer class="container-fluid"></footer>
   </div>
-
-  <br />
-  <br />
-  <br />
-  <br />
-  <footer class="container-fluid"></footer>
 </template>
    
 
@@ -82,8 +86,10 @@ export default {
             if (errors.error == `Anda sudah hadir`) {
               alert(errors.error);
             }
-          }else {
-            alert(`Gagal! Pastikan No. Whatsapp mu sudah terdaftar dan coba lagi`);
+          } else {
+            alert(
+              `Gagal! Pastikan No. Whatsapp mu sudah terdaftar dan coba lagi`
+            );
           }
           callbacks.unauth(err.response.status);
         });

@@ -85,7 +85,9 @@ export default {
           this.is200();
         })
         .catch((err) => {
-          callbacks.unauth(err.response.status, err.response.data.message);
+          if (err.status == 401) {
+            this.$router.push({ name: "Login" });
+          }
         });
     },
     deleteFace(item) {
@@ -102,10 +104,10 @@ export default {
             this.faces = this.faces.filter((people) => people !== item);
           }
         })
-        .catch(function(err) {
-            console.log(err.response);
-            callbacks.unauth(err.response.status, err.response.data.message);
-          });
+        .catch(function (err) {
+          console.log(err.response);
+          callbacks.unauth(err.response.status, err.response.data.message);
+        });
     },
   },
 };

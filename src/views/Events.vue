@@ -1,49 +1,57 @@
 <template>
-  <div class="container">
-    <h1>Daftar Events</h1>
-    <div class="col-sm-5">
-      <router-link :to="{ name: 'NewEvent' }">
-        <button type="button2" class="btn btn-primary">Buat Event Baru</button>
-      </router-link>
-    </div>
-    <div class="col-sm-5">
-      <router-link :to="{ name: 'People' }">
-        <button type="button2" class="btn btn-primary">Database Jamaah</button>
-      </router-link>
-      <h3></h3>
+  <div>
+    <div class="container">
+      <h1>Daftar Events</h1>
+      <div class="col-sm-5">
+        <router-link :to="{ name: 'NewEvent' }">
+          <button type="button2" class="btn btn-primary">
+            Buat Event Baru
+          </button>
+        </router-link>
+      </div>
+      <div class="col-sm-5">
+        <router-link :to="{ name: 'People' }">
+          <button type="button2" class="btn btn-primary">
+            Database Jamaah
+          </button>
+        </router-link>
+        <h3></h3>
+      </div>
+
+      <table style="width: 85%">
+        <tr>
+          <th style="padding-left: 10px; padding-right: 10px">No</th>
+          <th>Judul</th>
+          <th>Pembicara</th>
+          <th>Tempat</th>
+          <th>Tanggal</th>
+          <th>Action</th>
+        </tr>
+
+        <tr v-for="(event, i) in events" :key="event.id">
+          <td>{{ i + 1 }}</td>
+          <td>
+            <router-link :to="{ name: 'Events_id', params: { id: event.id } }">
+              {{ event.judul }}
+            </router-link>
+          </td>
+          <td>{{ event.pembicara }}</td>
+          <td>{{ event.tempat }}</td>
+          <td>{{ event.tanggal }}</td>
+          <td>
+            <!-- <button>edit</button> -->
+            <button style="color: red" v-on:click="deleteEvents(event)">
+              X
+            </button>
+          </td>
+        </tr>
+      </table>
     </div>
 
-    <table style="width: 85%">
-      <tr>
-        <th style="padding-left: 10px; padding-right: 10px">No</th>
-        <th>Judul</th>
-        <th>Pembicara</th>
-        <th>Tempat</th>
-        <th>Tanggal</th>
-        <th>Action</th>
-      </tr>
-
-      <tr v-for="(event, i) in events" :key="event.id">
-        <td>{{ i + 1 }}</td>
-        <td>
-          <router-link :to="{ name: 'Events_id', params: { id: event.id } }">
-            {{ event.judul }}
-          </router-link>
-        </td>
-        <td>{{ event.pembicara }}</td>
-        <td>{{ event.tempat }}</td>
-        <td>{{ event.tanggal }}</td>
-        <td>
-          <!-- <button>edit</button> -->
-          <button style="color: red" v-on:click="deleteEvents(event)">X</button>
-        </td>
-      </tr>
-    </table>
+    <br />
+    <br />
+    <br />
   </div>
-
-  <br />
-  <br />
-  <br />
 </template>
 
 

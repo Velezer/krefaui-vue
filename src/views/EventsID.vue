@@ -1,46 +1,52 @@
 <template>
-  <div class="container">
-    <h1>Daftar Peserta <br />{{ eventName }}</h1>
-    <div class="col-sm-5">
-      <router-link :to="{ name: 'Presensi', params: { id: id }  }">
-        <button type="button2" class="btn btn-primary">Presensi</button>
-      </router-link>
-    </div>
-    <div class="col-sm-5">
-      <router-link :to="{ name: 'PresensiTanpa' }">
-        <button type="button2" class="btn btn-primary">Presensi Tanpa Wajah</button>
-      </router-link>
-      <h3></h3>
-    </div>
-
-    <table style="width: 85%">
-      <tr>
-        <th style="padding-left: 10px; padding-right: 10px">No</th>
-        <th>Nama</th>
-        <th>Hadir Pada</th>
-        <th>Action</th>
-      </tr>
-
-      <tr v-for="(person, i) in attendance" :key="person.id">
-        <td>{{ i + 1 }}</td>
-        <td>
-          <router-link :to="{ name: 'People_id', params: { id: person.id_people } }">
-            {{ person.nama }}
-          </router-link>
-        </td>
-        <td>{{ person.hadir_pada }}</td>
-        <td>
-          <button style="color: red" v-on:click="deletePresence(person)">
-            X
+  <div>
+    <div class="container">
+      <h1>Daftar Peserta <br />{{ eventName }}</h1>
+      <div class="col-sm-5">
+        <router-link :to="{ name: 'Presensi', params: { id: id } }">
+          <button type="button2" class="btn btn-primary">Presensi</button>
+        </router-link>
+      </div>
+      <div class="col-sm-5">
+        <router-link :to="{ name: 'PresensiTanpa' }">
+          <button type="button2" class="btn btn-primary">
+            Presensi Tanpa Wajah
           </button>
-        </td>
-      </tr>
-    </table>
-  </div>
+        </router-link>
+        <h3></h3>
+      </div>
 
-  <br />
-  <br />
-  <br />
+      <table style="width: 85%">
+        <tr>
+          <th style="padding-left: 10px; padding-right: 10px">No</th>
+          <th>Nama</th>
+          <th>Hadir Pada</th>
+          <th>Action</th>
+        </tr>
+
+        <tr v-for="(person, i) in attendance" :key="person.id">
+          <td>{{ i + 1 }}</td>
+          <td>
+            <router-link
+              :to="{ name: 'People_id', params: { id: person.id_people } }"
+            >
+              {{ person.nama }}
+            </router-link>
+          </td>
+          <td>{{ person.hadir_pada }}</td>
+          <td>
+            <button style="color: red" v-on:click="deletePresence(person)">
+              X
+            </button>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <br />
+    <br />
+    <br />
+  </div>
 </template>
 
 
@@ -65,15 +71,15 @@ export default {
     this.getAttendanceById(this.id);
   },
   methods: {
-    deletePresence(item){
+    deletePresence(item) {
       if (!confirm("Yakin?")) {
         return;
       }
       axios.defaults.headers.common[
-      "Authorization"
-    ] = `Bearer ${localStorage.getItem(config.localStorage.dataToken)}`;
+        "Authorization"
+      ] = `Bearer ${localStorage.getItem(config.localStorage.dataToken)}`;
       axios
-        .delete(config.urls.deleteAttendance(item.id_events,item.id_people))
+        .delete(config.urls.deleteAttendance(item.id_events, item.id_people))
         .then((res) => {
           if (res.status == 200) {
             this.attendance = this.attendance.filter((att) => att !== item);
@@ -88,7 +94,6 @@ export default {
       axios
         .get(`${this.baseAPIURL}/api/attendance/events/${id}`)
         .then((res) => {
-
           let data = res.data;
           this.attendance = data.data;
           this.eventName = this.attendance[0]["judul"];

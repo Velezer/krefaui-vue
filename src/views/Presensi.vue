@@ -1,23 +1,26 @@
 <template>
-  <Popup :detected="detected" :id_events="id" v-on:no="no"></Popup>
+  <div>
+    <Popup :detected="detected" :id_events="id" v-on:no="no"></Popup>
 
-  <div class="container">
-    <div class="col-sm-7">
-      <div id="video">
-        <img src="@/assets/elements/Blue_Icon_Profile.png" />
+    <div class="container">
+      <div class="col-sm-7">
+        <div id="video">
+          <img src="@/assets/elements/Blue_Icon_Profile.png" />
+        </div>
       </div>
-    </div>
 
-    <div class="col-sm-4" style="padding-top: 100px">
-      <h2>Silahkan</h2>
-      <h2>Hadapkan Wajah</h2>
-      <h2>Anda ke Kamera</h2>
-      <p>
-        Sistem kami akan medeteksi dan<br />memproses wajah anda secara otomatis
-      </p>
-      <button type="button3" class="btn2" v-on:click="findPerson">
-        Ambil gambar
-      </button>
+      <div class="col-sm-4" style="padding-top: 100px">
+        <h2>Silahkan</h2>
+        <h2>Hadapkan Wajah</h2>
+        <h2>Anda ke Kamera</h2>
+        <p>
+          Sistem kami akan medeteksi dan<br />memproses wajah anda secara
+          otomatis
+        </p>
+        <button type="button3" class="btn2" v-on:click="findPerson">
+          Ambil gambar
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -68,8 +71,8 @@ export default {
       }).then((res) => {
         let data = res.data;
         data = data.data;
-        this.detected[0].foto = config.baseImgUrl+`/`+data.foto;
-        console.log(this.detected[0])
+        this.detected[0].foto = config.baseImgUrl + `/` + data.foto;
+        console.log(this.detected[0]);
       });
     },
 

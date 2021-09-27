@@ -1,77 +1,89 @@
 <template>
-  <div class="container text-center">
-    <img src="@/assets/elements/Blue_Calendar.png" />
-  </div>
-  
+  <div>
+    <div class="container text-center">
+      <img src="@/assets/elements/Blue_Calendar.png" />
+    </div>
+
     <form id="form-event">
       <div class="col-sm-6">
-      <div class="form-group">
-        <label for="comment">Judul Acara</label>
-        <input 
-          type="text"
-          v-model.trim="judul"
-          name="judul"
-          placeholder="Judul"
-        />
-        <small class="error-message" v-if="errors.judul">{{ errors.judul }}</small>
-      </div>
-      <div class="form-group">
-        <label for="comment">Pembicara</label>
-        <input
-          type="text"
-          v-model.trim="pembicara"
-          name="pembicara"
-          placeholder="Pembicara"
-        />
-        <small class="error-message" v-if="errors.pembicara">{{ errors.pembicara }}</small>
-      </div>
+        <div class="form-group">
+          <label for="comment">Judul Acara</label>
+          <input
+            type="text"
+            v-model.trim="judul"
+            name="judul"
+            placeholder="Judul"
+          />
+          <small class="error-message" v-if="errors.judul">{{
+            errors.judul
+          }}</small>
+        </div>
+        <div class="form-group">
+          <label for="comment">Pembicara</label>
+          <input
+            type="text"
+            v-model.trim="pembicara"
+            name="pembicara"
+            placeholder="Pembicara"
+          />
+          <small class="error-message" v-if="errors.pembicara">{{
+            errors.pembicara
+          }}</small>
+        </div>
       </div>
       <div class="col-sm-6">
         <div class="form-group">
-        <label for="comment">Tempat Pelaksanaan</label>
-        <input
-          type="text"
-          v-model.trim="tempat"
-          name="tempat"
-          placeholder="Tempat"
-        />
-        <small class="error-message" v-if="errors.tempat">{{ errors.tempat }}</small>
-      </div>
-      <div class="form-group">
-        <label for="comment">Tanggal Pelaksanaan</label>
-        <input
-          type="text"
-          v-model.trim="tanggal"
-          name="tanggal"
-          placeholder="YYYY-MM-DD"
-        />
-        <p class="error-message" v-if="errors.tanggal">{{ errors.tanggal }}</p>
-      </div>
+          <label for="comment">Tempat Pelaksanaan</label>
+          <input
+            type="text"
+            v-model.trim="tempat"
+            name="tempat"
+            placeholder="Tempat"
+          />
+          <small class="error-message" v-if="errors.tempat">{{
+            errors.tempat
+          }}</small>
+        </div>
+        <div class="form-group">
+          <label for="comment">Tanggal Pelaksanaan</label>
+          <input
+            type="text"
+            v-model.trim="tanggal"
+            name="tanggal"
+            placeholder="YYYY-MM-DD"
+          />
+          <p class="error-message" v-if="errors.tanggal">
+            {{ errors.tanggal }}
+          </p>
+        </div>
       </div>
 
-
-    <button type="button3" class="btn2" v-on:click.prevent="createEvent" style="margin-left: 400px">Buat</button>
-
-      
+      <button
+        type="button3"
+        class="btn2"
+        v-on:click.prevent="createEvent"
+        style="margin-left: 400px"
+      >
+        Buat
+      </button>
     </form>
-  
-  
 
-  <div class="container text-center">
-    <!-- <input type="checkbox" class="agreement" value="agreement" />
+    <div class="container text-center">
+      <!-- <input type="checkbox" class="agreement" value="agreement" />
     <label for="agreement"
       >Saya telah menyetujui kebijakan penggunaan<br />
       dan kebijakan privasi atas platform KreFa</label
     ><br />
     <br /> -->
-    <!-- <button type="button3" class="btn2" v-on:click="createEvent">Buat</button> -->
-  </div>
+      <!-- <button type="button3" class="btn2" v-on:click="createEvent">Buat</button> -->
+    </div>
 
-  <br />
-  <br />
-  <br />
-  <br />
-  <footer class="container-fluid"></footer>
+    <br />
+    <br />
+    <br />
+    <br />
+    <footer class="container-fluid"></footer>
+  </div>
 </template>
 
 <script>
@@ -95,11 +107,11 @@ export default {
   },
   methods: {
     createEvent() {
-      let formData = new FormData()
-      formData.append('judul', this.judul)
-      formData.append('pembicara', this.pembicara)
-      formData.append('tempat', this.tempat)
-      formData.append('tanggal', this.tanggal)
+      let formData = new FormData();
+      formData.append("judul", this.judul);
+      formData.append("pembicara", this.pembicara);
+      formData.append("tempat", this.tempat);
+      formData.append("tanggal", this.tanggal);
       axios({
         method: "post",
         url: config.urls.events,
@@ -107,8 +119,8 @@ export default {
         headers: { "Content-Type": "multipart/form-data" },
       })
         .then((res) => {
-          if (res.status == 201){
-            alert("Event baru berhasil dibuat")
+          if (res.status == 201) {
+            alert("Event baru berhasil dibuat");
             this.$router.push({ name: "Events" });
           }
         })
@@ -200,5 +212,4 @@ input.agreement {
   height: 30px;
   margin-right: 10px;
 }
-
 </style>
